@@ -19,10 +19,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="0"
-            android:id="@+id/textView11"
+            android:id="@+id/tv_result"
             android:gravity="center|right"
-            android:textSize="40dp" />
+            android:textSize="40dp"
+            android:hint="0" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="7"
-            android:id="@+id/button4"
+            android:id="@+id/bt_7"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="8"
-            android:id="@+id/button10"
+            android:id="@+id/bt_8"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="9"
-            android:id="@+id/button9"
+            android:id="@+id/bt_9"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="+"
-            android:id="@+id/button8"
+            android:id="@+id/bt_suma"
             android:layout_weight="1"
             android:textSize="25dp" />
     </LinearLayout>
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="4"
-            android:id="@+id/button5"
+            android:id="@+id/bt_4"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="5"
-            android:id="@+id/button13"
+            android:id="@+id/bt_5"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="6"
-            android:id="@+id/button12"
+            android:id="@+id/bt_6"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="-"
-            android:id="@+id/button11"
+            android:id="@+id/bt_resta"
             android:layout_weight="1"
             android:textSize="25dp" />
     </LinearLayout>
@@ -113,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="1"
-            android:id="@+id/button6"
+            android:id="@+id/bt_1"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -121,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="2"
-            android:id="@+id/button16"
+            android:id="@+id/bt_2"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -129,7 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="3"
-            android:id="@+id/button15"
+            android:id="@+id/bt_3"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -137,7 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="x"
-            android:id="@+id/button14"
+            android:id="@+id/bt_mult"
             android:layout_weight="1"
             android:textSize="25dp" />
     </LinearLayout>
@@ -152,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="."
-            android:id="@+id/button7"
+            android:id="@+id/bt_punt"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -160,7 +160,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="0"
-            android:id="@+id/button19"
+            android:id="@+id/bt_0"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -168,7 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="="
-            android:id="@+id/button18"
+            android:id="@+id/bt_igual"
             android:layout_weight="1"
             android:textSize="25dp" />
 
@@ -176,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="/"
-            android:id="@+id/button17"
+            android:id="@+id/bt_div"
             android:layout_weight="1"
             android:textSize="25dp" />
     </LinearLayout>

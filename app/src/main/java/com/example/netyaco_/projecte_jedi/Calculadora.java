@@ -1,13 +1,137 @@
 package com.example.netyaco_.projecte_jedi;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-public class Calculadora extends AppCompatActivity {
+public class Calculadora extends AppCompatActivity implements View.OnClickListener{
+
+    TextView result;
+    String s = new String();
+    double operacio = 0;
+    Button bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7,bt8, bt9, bt10, bt11, bt12, bt13, bt14, bt15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculadora);
+
+        result = (TextView) findViewById(R.id.tv_result);
+        bt0 = (Button) findViewById(R.id.bt_0);
+        bt1 = (Button) findViewById(R.id.bt_1);
+        bt2 = (Button) findViewById(R.id.bt_2);
+        bt3 = (Button) findViewById(R.id.bt_3);
+        bt4 = (Button) findViewById(R.id.bt_4);
+        bt5 = (Button) findViewById(R.id.bt_5);
+        bt6 = (Button) findViewById(R.id.bt_6);
+        bt7 = (Button) findViewById(R.id.bt_7);
+        bt8 = (Button) findViewById(R.id.bt_8);
+        bt9 = (Button) findViewById(R.id.bt_9);
+        bt10 = (Button) findViewById(R.id.bt_punt);
+        bt11 = (Button) findViewById(R.id.bt_suma);
+        bt12 = (Button) findViewById(R.id.bt_resta);
+        bt13 = (Button) findViewById(R.id.bt_mult);
+        bt14 = (Button) findViewById(R.id.bt_div);
+        bt15 = (Button) findViewById(R.id.bt_igual);
+        /*View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundColor(Color.RED);
+            }
+        };
+        //bt.setOnClickListener(listener);*/
+        //Con implements
+        bt0.setOnClickListener(this);
+        bt1.setOnClickListener(this);
+        bt2.setOnClickListener(this);
+        bt3.setOnClickListener(this);
+        bt4.setOnClickListener(this);
+        bt5.setOnClickListener(this);
+        bt6.setOnClickListener(this);
+        bt7.setOnClickListener(this);
+        bt8.setOnClickListener(this);
+        bt9.setOnClickListener(this);
+        bt10.setOnClickListener(this);
+        bt11.setOnClickListener(this);
+        bt12.setOnClickListener(this);
+        bt13.setOnClickListener(this);
+        bt14.setOnClickListener(this);
+        bt15.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_0:
+                s+="0";
+                result.setText(s);
+                break;
+            case R.id.bt_1:
+                s+="1";
+                result.setText(s);
+                break;
+            case R.id.bt_2:
+                s+="2";
+                result.setText(s);
+                break;
+            case R.id.bt_3:
+                s+="3";
+                result.setText(s);
+                break;
+            case R.id.bt_4:
+                s+="4";
+                result.setText(s);
+                break;
+            case R.id.bt_5:
+                s+="5";
+                result.setText(s);
+                break;
+            case R.id.bt_6:
+                s+="6";
+                result.setText(s);
+                break;
+            case R.id.bt_7:
+                s+="7";
+                result.setText(s);
+                break;
+            case R.id.bt_8:
+                s+="8";
+                result.setText(s);
+                break;
+            case R.id.bt_9:
+                s+="9";
+                result.setText(s);
+                break;
+            case R.id.bt_suma:
+                s+="+";
+                result.setText(s);
+                break;
+            case R.id.bt_resta:
+                s+="-";
+                result.setText(s);
+                break;
+            case R.id.bt_mult:
+                s+="x";
+                result.setText(s);
+                break;
+            case R.id.bt_div:
+                s+="/";
+                result.setText(s);
+                break;
+            case R.id.bt_punt:
+                s+=".";
+                result.setText(s);
+                break;
+            case R.id.bt_igual:
+                s+="=";
+                result.setText(s);
+                break;
+            default:
+                break;
+        }
     }
 }
