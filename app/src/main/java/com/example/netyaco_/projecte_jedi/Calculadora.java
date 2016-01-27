@@ -176,4 +176,16 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     }
 
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        s = (String)result.getText();
+        outState.putString("result",s);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        result.setText(savedInstanceState.getString("result"));
+    }
 }

@@ -16,7 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Calculadora" />
-        <activity android:name=".Settings"></activity>
+        <activity android:name=".Settings" />
+        <activity android:name=".Intent1" />
+        <activity android:name=".Intent2"></activity>
     </application>
 
 </manifest>

@@ -27,9 +27,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         bt1 = (Button) findViewById(R.id.bt_calc);
         bt2 = (Button) findViewById(R.id.bt_dialer);
+        bt3 = (Button) findViewById(R.id.bt_intents);
 
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
+        bt3.setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +64,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_dialer:
                 Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
                 startActivity(intent2);
+                break;
+            case R.id.bt_intents:
+                Intent intent3 = new Intent(getApplicationContext(), Intent1.class);
+                startActivity(intent3);
+                break;
             default:
                 break;
         }
