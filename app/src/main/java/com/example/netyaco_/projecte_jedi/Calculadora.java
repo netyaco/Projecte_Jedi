@@ -62,6 +62,8 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         bt16.setOnClickListener(this);
         bt17.setOnClickListener(this);
         bt18.setOnClickListener(this);
+
+        val1 = val2 = total = 0.0;
     }
 
     @Override
@@ -110,25 +112,25 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.bt_suma:
                 operacio = "+";
-                val1 = Double.parseDouble((String) result.getText());
+                if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
                 result.setText("");
                 result.setHint(val1.toString());
                 break;
             case R.id.bt_resta:
                 operacio = "-";
-                val1 = Double.parseDouble((String) result.getText());
+                if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
                 result.setText("");
                 result.setHint(val1.toString());
                 break;
             case R.id.bt_mult:
                 operacio = "x";
-                val1 = Double.parseDouble((String) result.getText());
+                if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
                 result.setText("");
                 result.setHint(val1.toString());
                 break;
             case R.id.bt_div:
                 operacio = "/";
-                val1 = Double.parseDouble((String) result.getText());
+                if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
                 result.setText("");
                 result.setHint(val1.toString());
                 break;
@@ -137,22 +139,21 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 result.setText(s);
                 break;
             case R.id.bt_igual:
-                val2 = Double.parseDouble((String) result.getText());
-                if (operacio.equals("+")) {
-                    total = val1 + val2;
+                if (result.getText() != "") {
+                    val2 = Double.parseDouble((String) result.getText());
+                    if (operacio.equals("+")) {
+                        total = val1 + val2;
+                    } else if (operacio.equals("-")) {
+                        total = val1 - val2;
+                    } else if (operacio.equals("x")) {
+                        total = val1 * val2;
+                    } else if (operacio.equals("/")) {
+                        total = val1 / val2;
+                    }
+                    result.setText(total.toString());
+                    break;
                 }
-                else if (operacio.equals("-")) {
-                    total = val1 - val2;
-                }
-                else if (operacio.equals("x")) {
-                    total = val1 * val2;
-                }
-                else if (operacio.equals("/")){
-                    total = val1 / val2;
-                }
-                result.setText(total.toString());
-                break;
-            case R.id.bt_ac:
+            case R.id.bt_c:
                 val2 = 0.0;
                 result.setText("");
                 result.setHint("0");
@@ -163,7 +164,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                     result.setText(s);
                 }
                 break;
-            case R.id.bt_c:
+            case R.id.bt_ac:
                 val1 = val2 = total = 0.0;
                 operacio = "";
                 result.setText("");
@@ -173,4 +174,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
+
 }
