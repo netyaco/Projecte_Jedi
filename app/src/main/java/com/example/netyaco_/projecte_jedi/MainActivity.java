@@ -1,6 +1,7 @@
 package com.example.netyaco_.projecte_jedi;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,8 +26,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
         bt1 = (Button) findViewById(R.id.bt_calc);
+        bt2 = (Button) findViewById(R.id.bt_dialer);
 
         bt1.setOnClickListener(this);
+        bt2.setOnClickListener(this);
     }
 
     @Override
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(getApplicationContext(), Calculadora.class);
                 startActivity(intent);
                 break;
+            case R.id.bt_dialer:
+                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
+                startActivity(intent2);
             default:
                 break;
         }
