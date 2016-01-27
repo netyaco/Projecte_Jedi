@@ -147,7 +147,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 else if (operacio.equals("x")) {
                     total = val1 * val2;
                 }
-                else {
+                else if (operacio.equals("/")){
                     total = val1 / val2;
                 }
                 result.setText(total.toString());
