@@ -12,7 +12,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
 
     TextView result;
     String s = new String();
-    // Per decidir el tipus d'operacio
     String operacio;
     Double val1, val2, total;
     Button bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7,bt8, bt9, bt10, bt11, bt12, bt13, bt14, bt15;
@@ -43,14 +42,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         bt16 = (Button) findViewById(R.id.bt_ac);
         bt17 = (Button) findViewById(R.id.bt_del);
         bt18 = (Button) findViewById(R.id.bt_c);
-        /*View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setBackgroundColor(Color.RED);
-            }
-        };
-        //bt.setOnClickListener(listener);*/
-        //Con implements
+
         bt0.setOnClickListener(this);
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
@@ -119,34 +111,26 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
             case R.id.bt_suma:
                 operacio = "+";
                 val1 = Double.parseDouble((String) result.getText());
-                //s+="+";
                 result.setText("");
                 result.setHint(val1.toString());
-                //result.setText("");
                 break;
             case R.id.bt_resta:
                 operacio = "-";
                 val1 = Double.parseDouble((String) result.getText());
-                //s+="+";
                 result.setText("");
                 result.setHint(val1.toString());
-                //result.setText("");
                 break;
             case R.id.bt_mult:
                 operacio = "x";
                 val1 = Double.parseDouble((String) result.getText());
-                //s+="+";
                 result.setText("");
                 result.setHint(val1.toString());
-                //result.setText("");
                 break;
             case R.id.bt_div:
                 operacio = "/";
                 val1 = Double.parseDouble((String) result.getText());
-                //s+="+";
                 result.setText("");
                 result.setHint(val1.toString());
-                //result.setText("");
                 break;
             case R.id.bt_punt:
                 s+=".";
@@ -154,7 +138,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.bt_igual:
                 val2 = Double.parseDouble((String) result.getText());
-                //s+="=";
                 if (operacio.equals("+")) {
                     total = val1 + val2;
                 }
