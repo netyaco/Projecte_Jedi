@@ -34,6 +34,34 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text="AC"
+            android:id="@+id/bt_ac"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="DEL"
+            android:id="@+id/bt_del"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="C"
+            android:id="@+id/bt_c"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="7"
             android:id="@+id/bt_7"
             android:layout_weight="1"
@@ -180,4 +208,5 @@
             android:layout_weight="1"
             android:textSize="25dp" />
     </LinearLayout>
+
 </LinearLayout>

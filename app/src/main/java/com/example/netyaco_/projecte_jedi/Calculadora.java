@@ -12,8 +12,11 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
 
     TextView result;
     String s = new String();
-    double operacio = 0;
+    // Per decidir el tipus d'operacio
+    String operacio;
+    Double val1, val2, total;
     Button bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7,bt8, bt9, bt10, bt11, bt12, bt13, bt14, bt15;
+    Button bt16, bt17, bt18;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         bt13 = (Button) findViewById(R.id.bt_mult);
         bt14 = (Button) findViewById(R.id.bt_div);
         bt15 = (Button) findViewById(R.id.bt_igual);
+        bt16 = (Button) findViewById(R.id.bt_ac);
+        bt17 = (Button) findViewById(R.id.bt_del);
+        bt18 = (Button) findViewById(R.id.bt_c);
         /*View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,10 +67,14 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         bt13.setOnClickListener(this);
         bt14.setOnClickListener(this);
         bt15.setOnClickListener(this);
+        bt16.setOnClickListener(this);
+        bt17.setOnClickListener(this);
+        bt18.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        s = (String)result.getText();
         switch (v.getId()) {
             case R.id.bt_0:
                 s+="0";
@@ -107,28 +117,74 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 result.setText(s);
                 break;
             case R.id.bt_suma:
-                s+="+";
-                result.setText(s);
+                operacio = "+";
+                val1 = Double.parseDouble((String) result.getText());
+                //s+="+";
+                result.setText("");
+                result.setHint(val1.toString());
+                //result.setText("");
                 break;
             case R.id.bt_resta:
-                s+="-";
-                result.setText(s);
+                operacio = "-";
+                val1 = Double.parseDouble((String) result.getText());
+                //s+="+";
+                result.setText("");
+                result.setHint(val1.toString());
+                //result.setText("");
                 break;
             case R.id.bt_mult:
-                s+="x";
-                result.setText(s);
+                operacio = "x";
+                val1 = Double.parseDouble((String) result.getText());
+                //s+="+";
+                result.setText("");
+                result.setHint(val1.toString());
+                //result.setText("");
                 break;
             case R.id.bt_div:
-                s+="/";
-                result.setText(s);
+                operacio = "/";
+                val1 = Double.parseDouble((String) result.getText());
+                //s+="+";
+                result.setText("");
+                result.setHint(val1.toString());
+                //result.setText("");
                 break;
             case R.id.bt_punt:
                 s+=".";
                 result.setText(s);
                 break;
             case R.id.bt_igual:
-                s+="=";
-                result.setText(s);
+                val2 = Double.parseDouble((String) result.getText());
+                //s+="=";
+                if (operacio.equals("+")) {
+                    total = val1 + val2;
+                }
+                else if (operacio.equals("-")) {
+                    total = val1 - val2;
+                }
+                else if (operacio.equals("x")) {
+                    total = val1 * val2;
+                }
+                else {
+                    total = val1 / val2;
+                }
+                result.setText(total.toString());
+                break;
+            case R.id.bt_ac:
+                val2 = 0.0;
+                result.setText("");
+                result.setHint("0");
+                break;
+            case R.id.bt_del:
+                if (s.length() > 0) {
+                    s = s.substring(0,s.length()-1);
+                    result.setText(s);
+                }
+                break;
+            case R.id.bt_c:
+                val1 = val2 = total = 0.0;
+                operacio = "";
+                result.setText("");
+                result.setHint("0");
                 break;
             default:
                 break;
