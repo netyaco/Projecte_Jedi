@@ -39,6 +39,7 @@ public class Intent2 extends AppCompatActivity implements View.OnClickListener{
             case R.id.bt_tornar:
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             default:
                 break;

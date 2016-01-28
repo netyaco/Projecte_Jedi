@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +17,9 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     Double val1, val2, total;
     Button bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7,bt8, bt9, bt10, bt11, bt12, bt13, bt14, bt15;
     Button bt16, bt17, bt18;
+    boolean igual = false;
+    boolean first = true;
+    //boolean valor1 = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,80 +70,174 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         val1 = val2 = total = 0.0;
     }
 
+    /*private void comprovar_igual() {
+        if (igual) {
+            val1 = val2 = total = 0.0;
+            operacio = "";
+            s = "";
+            igual = false;
+        }
+    }*/
+
+    private void igual() {
+        if (result.getText() != "") {
+            //val1 = total;
+            val2 = Double.parseDouble((String) result.getText());
+            if (operacio.equals("+")) {
+                total = val1 + val2;
+            } else if (operacio.equals("-")) {
+                total = val1 - val2;
+            } else if (operacio.equals("x")) {
+                total = val1 * val2;
+            } else if (operacio.equals("/")) {
+                total = val1 / val2;
+            }
+            //result.setText(total.toString());
+            result.setText("");
+            result.setHint(total.toString());
+            //igual = true;
+            //if (!first) first = true;
+            //else first = false;
+            val1 = total;
+            //first = true;
+        }
+    }
+
     @Override
     public void onClick(View v) {
         s = (String)result.getText();
         switch (v.getId()) {
             case R.id.bt_0:
+                //comprovar_igual();
                 s+="0";
                 result.setText(s);
                 break;
             case R.id.bt_1:
+                //comprovar_igual();
                 s+="1";
                 result.setText(s);
                 break;
             case R.id.bt_2:
+                //comprovar_igual();
                 s+="2";
                 result.setText(s);
                 break;
             case R.id.bt_3:
+                //comprovar_igual();
                 s+="3";
                 result.setText(s);
                 break;
             case R.id.bt_4:
+                //comprovar_igual();
                 s+="4";
                 result.setText(s);
                 break;
             case R.id.bt_5:
+                //comprovar_igual();
                 s+="5";
                 result.setText(s);
                 break;
             case R.id.bt_6:
+                //comprovar_igual();
                 s+="6";
                 result.setText(s);
                 break;
             case R.id.bt_7:
+                //comprovar_igual();
                 s+="7";
                 result.setText(s);
                 break;
             case R.id.bt_8:
+                //comprovar_igual();
                 s+="8";
                 result.setText(s);
                 break;
             case R.id.bt_9:
+                //comprovar_igual();
                 s+="9";
                 result.setText(s);
                 break;
             case R.id.bt_suma:
-                operacio = "+";
-                if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
-                result.setText("");
-                result.setHint(val1.toString());
+                //operacio = "+";
+                if (first) {
+                    operacio = "+";
+                    if (result.getText() != "")
+                        val1 = Double.parseDouble((String) result.getText());
+                    result.setText("");
+                    result.setHint(val1.toString());
+                    first = false;
+                }
+                else {
+                    igual();
+                    operacio = "+";
+                }
+                /*if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
+                igual();
+                if (igual) {
+                    igual = false;
+                    //igual();
+                }
+                //else {
+                    result.setText("");
+                    //if (first) {
+                        result.setHint(val1.toString());
+                        //first = false;
+                    //}
+                //}*/
                 break;
             case R.id.bt_resta:
-                operacio = "-";
-                if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
-                result.setText("");
-                result.setHint(val1.toString());
+                //operacio = "-";
+                if (first) {
+                    operacio = "-";
+                    if (result.getText() != "")
+                        val1 = Double.parseDouble((String) result.getText());
+                    result.setText("");
+                    result.setHint(val1.toString());
+                    first = false;
+                }
+                else {
+                    igual();
+                    operacio = "-";
+                }
                 break;
             case R.id.bt_mult:
-                operacio = "x";
-                if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
-                result.setText("");
-                result.setHint(val1.toString());
+                //operacio = "x";
+                if (first) {
+                    operacio = "x";
+                    if (result.getText() != "")
+                        val1 = Double.parseDouble((String) result.getText());
+                    result.setText("");
+                    result.setHint(val1.toString());
+                    first = false;
+                }
+                else {
+                    igual();
+                    operacio = "x";
+                }
                 break;
             case R.id.bt_div:
-                operacio = "/";
-                if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
-                result.setText("");
-                result.setHint(val1.toString());
+                //operacio = "/";
+                if (first) {
+                    operacio = "/";
+                    if (result.getText() != "")
+                        val1 = Double.parseDouble((String) result.getText());
+                    result.setText("");
+                    result.setHint(val1.toString());
+                    first = false;
+                }
+                else {
+                    igual();
+                    operacio = "/";
+                }
                 break;
             case R.id.bt_punt:
+                if (((String) result.getText()).isEmpty()) result.setText("0");
                 s+=".";
                 result.setText(s);
                 break;
             case R.id.bt_igual:
-                if (result.getText() != "") {
+                /*if (result.getText() != "") {
+                    //igual = true;
                     val2 = Double.parseDouble((String) result.getText());
                     if (operacio.equals("+")) {
                         total = val1 + val2;
@@ -151,8 +249,11 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                         total = val1 / val2;
                     }
                     result.setText(total.toString());
-                    break;
-                }
+                    val1 = total;
+                }*/
+                igual();
+                //valor1 = true;
+                break;
             case R.id.bt_c:
                 val2 = 0.0;
                 result.setText("");
@@ -169,6 +270,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 operacio = "";
                 result.setText("");
                 result.setHint("0");
+                first = true;
                 break;
             default:
                 break;

@@ -34,6 +34,7 @@ public class Intent1 extends AppCompatActivity implements View.OnClickListener{
                 Intent intent = new Intent(getApplicationContext(), Intent2.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
                 break;
             default:
                 break;
