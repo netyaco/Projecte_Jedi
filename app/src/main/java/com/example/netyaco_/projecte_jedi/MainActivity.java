@@ -1,5 +1,7 @@
 package com.example.netyaco_.projecte_jedi;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
@@ -17,9 +19,9 @@ import android.widget.Toast;
 
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button bt1, bt2, bt3;
+    private Button bt1, bt2, bt3, bt4;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -34,10 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt1 = (Button) findViewById(R.id.bt_calc);
         bt2 = (Button) findViewById(R.id.bt_dialer);
         bt3 = (Button) findViewById(R.id.bt_intents);
+        bt4 = (Button) findViewById(R.id.bt_dialog);
 
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
         bt3.setOnClickListener(this);
+        bt4.setOnClickListener(this);
     }
 
     private void setUpViews() {
@@ -83,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         // Initializing Drawer Layout and ActionBarToggle
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.openDrawer, R.string.closeDrawer){
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -131,17 +135,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_calc:
                 Intent intent = new Intent(getApplicationContext(), Calculadora.class);
                 startActivity(intent);
-                finish();
+                //finish();
                 break;
             case R.id.bt_dialer:
                 Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
                 startActivity(intent2);
-                finish();
+                //finish();
                 break;
             case R.id.bt_intents:
                 Intent intent3 = new Intent(getApplicationContext(), Intent1.class);
                 startActivity(intent3);
-                finish();
+                //finish();
+                break;
+            case R.id.bt_dialog:
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Error");
+                builder.setMessage("Archivo no encontrado");
+                builder.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                builder.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
             default:
                 break;

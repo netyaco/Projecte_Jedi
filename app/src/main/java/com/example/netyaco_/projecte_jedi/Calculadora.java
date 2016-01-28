@@ -1,13 +1,19 @@
 package com.example.netyaco_.projecte_jedi;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Calculadora extends AppCompatActivity implements View.OnClickListener{
 
@@ -17,14 +23,17 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     Double val1, val2, total;
     Button bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7,bt8, bt9, bt10, bt11, bt12, bt13, bt14, bt15;
     Button bt16, bt17, bt18;
-    boolean igual = false;
     boolean first = true;
-    //boolean valor1 = true;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculadora);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         result = (TextView) findViewById(R.id.tv_result);
         bt0 = (Button) findViewById(R.id.bt_0);
@@ -70,14 +79,29 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         val1 = val2 = total = 0.0;
     }
 
-    /*private void comprovar_igual() {
-        if (igual) {
-            val1 = val2 = total = 0.0;
-            operacio = "";
-            s = "";
-            igual = false;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.calculadora_menu, menu);
+        return true;
+        //return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_call:
+                String call = "tel:"+result.getText();
+                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse(call));
+                startActivity(intent2);
+                //finish();
+                //break;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-    }*/
+        //return super.onOptionsItemSelected(item);
+    }
+
 
     private void igual() {
         if (result.getText() != "") {
@@ -90,7 +114,11 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
             } else if (operacio.equals("x")) {
                 total = val1 * val2;
             } else if (operacio.equals("/")) {
-                total = val1 / val2;
+                if (val2 == 0) {
+                    reset();
+                    Toast.makeText(getApplicationContext(), "Ni lo sueñes", Toast.LENGTH_LONG).show();
+                }
+                else total = val1 / val2;
             }
             //result.setText(total.toString());
             result.setText("");
@@ -103,57 +131,55 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    private void reset() {
+        val1 = val2 = total = 0.0;
+        operacio = "";
+        result.setText("");
+        result.setHint("0");
+        first = true;
+    }
+
     @Override
     public void onClick(View v) {
         s = (String)result.getText();
         switch (v.getId()) {
             case R.id.bt_0:
-                //comprovar_igual();
                 s+="0";
                 result.setText(s);
                 break;
             case R.id.bt_1:
-                //comprovar_igual();
                 s+="1";
                 result.setText(s);
                 break;
             case R.id.bt_2:
-                //comprovar_igual();
                 s+="2";
                 result.setText(s);
                 break;
             case R.id.bt_3:
-                //comprovar_igual();
                 s+="3";
                 result.setText(s);
                 break;
             case R.id.bt_4:
-                //comprovar_igual();
                 s+="4";
                 result.setText(s);
                 break;
             case R.id.bt_5:
-                //comprovar_igual();
                 s+="5";
                 result.setText(s);
                 break;
             case R.id.bt_6:
-                //comprovar_igual();
                 s+="6";
                 result.setText(s);
                 break;
             case R.id.bt_7:
-                //comprovar_igual();
                 s+="7";
                 result.setText(s);
                 break;
             case R.id.bt_8:
-                //comprovar_igual();
                 s+="8";
                 result.setText(s);
                 break;
             case R.id.bt_9:
-                //comprovar_igual();
                 s+="9";
                 result.setText(s);
                 break;
@@ -171,19 +197,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                     igual();
                     operacio = "+";
                 }
-                /*if (result.getText() != "") val1 = Double.parseDouble((String) result.getText());
-                igual();
-                if (igual) {
-                    igual = false;
-                    //igual();
-                }
-                //else {
-                    result.setText("");
-                    //if (first) {
-                        result.setHint(val1.toString());
-                        //first = false;
-                    //}
-                //}*/
                 break;
             case R.id.bt_resta:
                 //operacio = "-";
@@ -236,23 +249,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 result.setText(s);
                 break;
             case R.id.bt_igual:
-                /*if (result.getText() != "") {
-                    //igual = true;
-                    val2 = Double.parseDouble((String) result.getText());
-                    if (operacio.equals("+")) {
-                        total = val1 + val2;
-                    } else if (operacio.equals("-")) {
-                        total = val1 - val2;
-                    } else if (operacio.equals("x")) {
-                        total = val1 * val2;
-                    } else if (operacio.equals("/")) {
-                        total = val1 / val2;
-                    }
-                    result.setText(total.toString());
-                    val1 = total;
-                }*/
                 igual();
-                //valor1 = true;
                 break;
             case R.id.bt_c:
                 val2 = 0.0;
@@ -266,11 +263,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 }
                 break;
             case R.id.bt_ac:
-                val1 = val2 = total = 0.0;
-                operacio = "";
-                result.setText("");
-                result.setHint("0");
-                first = true;
+                reset();
                 break;
             default:
                 break;
@@ -283,11 +276,19 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         super.onSaveInstanceState(outState);
         s = (String)result.getText();
         outState.putString("result",s);
+        outState.putBoolean("first", first);
+        outState.putDouble("val1", val1);
+        outState.putDouble("val2", val2);
+        outState.putDouble("total", total);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         result.setText(savedInstanceState.getString("result"));
+        first = savedInstanceState.getBoolean("first");
+        val1 = savedInstanceState.getDouble("val1");
+        val2 = savedInstanceState.getDouble("val2");
+        total = savedInstanceState.getDouble("total");
     }
 }

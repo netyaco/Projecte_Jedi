@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Calculadora" />
+        <activity android:name=".Calculadora"
+            android:label="Calculadora"/>
         <activity android:name=".Settings" />
         <activity android:name=".Intent1" />
         <activity android:name=".Intent2"></activity>
