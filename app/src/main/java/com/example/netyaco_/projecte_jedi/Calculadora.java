@@ -20,7 +20,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     TextView result;
     String s = new String();
     String operacio;
-    Double val1, val2, total;
+    Double val1, val2, total, ans;
     Button bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7,bt8, bt9, bt10, bt11, bt12, bt13, bt14, bt15;
     Button bt16, bt17, bt18;
     boolean first = true;
@@ -127,6 +127,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
             //if (!first) first = true;
             //else first = false;
             val1 = total;
+            ans = total;
             //first = true;
         }
     }
@@ -280,6 +281,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         outState.putDouble("val1", val1);
         outState.putDouble("val2", val2);
         outState.putDouble("total", total);
+        outState.putDouble("ans", ans);
     }
 
     @Override

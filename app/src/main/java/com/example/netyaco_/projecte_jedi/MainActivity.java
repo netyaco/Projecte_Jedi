@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button bt1, bt2, bt3, bt4;
+    private Button bt1, bt2, bt3, bt4, bt5;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -37,11 +37,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt2 = (Button) findViewById(R.id.bt_dialer);
         bt3 = (Button) findViewById(R.id.bt_intents);
         bt4 = (Button) findViewById(R.id.bt_dialog);
+        bt5 = (Button) findViewById(R.id.bt_login_main);
 
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
         bt3.setOnClickListener(this);
         bt4.setOnClickListener(this);
+        bt5.setOnClickListener(this);
     }
 
     private void setUpViews() {
@@ -131,20 +133,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.bt_calc:
-                Intent intent = new Intent(getApplicationContext(), Calculadora.class);
+                intent = new Intent(getApplicationContext(), Calculadora.class);
                 startActivity(intent);
                 //finish();
                 break;
             case R.id.bt_dialer:
-                Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
-                startActivity(intent2);
+                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
+                startActivity(intent);
                 //finish();
                 break;
             case R.id.bt_intents:
-                Intent intent3 = new Intent(getApplicationContext(), Intent1.class);
-                startActivity(intent3);
+                intent = new Intent(getApplicationContext(), Intent1.class);
+                startActivity(intent);
                 //finish();
                 break;
             case R.id.bt_dialog:
@@ -167,6 +170,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+                break;
+            case R.id.bt_login_main:
+                intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
                 break;
             default:
                 break;

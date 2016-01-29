@@ -26,8 +26,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:background="#00ffffff">
 
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton"
+                android:layout_gravity="center_horizontal"
+                android:nestedScrollingEnabled="false"
+                android:background="#00ffffff" />
 
             <Button
                 android:id="@+id/bt_dialer"
@@ -53,8 +63,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button2"
+                android:text="Login"
+                android:id="@+id/bt_login_main"
                 android:layout_gravity="center_horizontal" />
 
             <Button
@@ -62,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Calculadora"
+                android:drawableLeft="@drawable/ic_calculator_black_36dp"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </LinearLayout>
