@@ -37,9 +37,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         //inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
 
-        //etUser.addTextChangedListener(new MyTextWatcher(etUser));
-        //etMail.addTextChangedListener(new MyTextWatcher(etMail));
-        //etPass.addTextChangedListener(new MyTextWatcher(etPass));
 
         btNew.setOnClickListener(this);
         btLog.setOnClickListener(this);
@@ -131,100 +128,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    /**
-     * Validating form
-     */
-    /*
-    private void submitForm() {
-        if (!validateName()) {
-            return;
-        }
 
-        if (!validateEmail()) {
-            return;
-        }
-
-        if (!validatePassword()) {
-            return;
-        }
-
-        Toast.makeText(getApplicationContext(), "Thank You!", Toast.LENGTH_SHORT).show();
-    }
-
-    private boolean validateName() {
-        if (etUser.getText().toString().trim().isEmpty()) {
-            inputLayoutName.setError("Introdueix el teu nom complet");
-            //requestFocus(etUser);
-            return false;
-        } else {
-            inputLayoutName.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private boolean validateEmail() {
-        String email = etMail.getText().toString().trim();
-
-        if (email.isEmpty() || !isValidEmail(email)) {
-            inputLayoutEmail.setError("Introdueix un email correcte");
-            requestFocus(etMail);
-            return false;
-        } else {
-            inputLayoutEmail.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private boolean validatePassword() {
-        if (etPass.getText().toString().trim().isEmpty()) {
-            inputLayoutPassword.setError("Introdueix un password");
-            //requestFocus(etPass);
-            return false;
-        } else {
-            inputLayoutPassword.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    private class MyTextWatcher implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.et_user:
-                    validateName();
-                    break;
-                case R.id.et_email:
-                    validateEmail();
-                    break;
-                case R.id.et_pass:
-                    validatePassword();
-                    break;
-            }
-        }
-    }*/
 }

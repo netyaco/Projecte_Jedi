@@ -23,8 +23,12 @@
         <activity android:name=".Settings" />
         <activity android:name=".Login" />
         <activity android:name=".Fragment_container" />
-        <activity android:name=".Perfil_usuari" />
-        <activity android:name=".Ranking"></activity>
+        <activity android:name=".Perfil_usuari"
+            android:label="Login"/>
+        <activity android:name=".Ranking"
+            android:label="Ranking"/>
+        <activity android:name=".Memory"
+            android:label="Memory"></activity>
     </application>
 
 </manifest>

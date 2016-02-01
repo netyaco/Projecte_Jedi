@@ -47,7 +47,6 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Perfil d&apos;usuari"
                 android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp" />
 
@@ -58,7 +57,6 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Memory"
                 android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp" />
 
@@ -69,7 +67,6 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Rànking"
                 android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp" />
 
@@ -80,7 +77,6 @@
                 android:id="@+id/bt_player"
                 android:layout_gravity="center_horizontal"
                 android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp" />
 
@@ -93,7 +89,6 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp" />
 
@@ -105,7 +100,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp" />
         </LinearLayout>

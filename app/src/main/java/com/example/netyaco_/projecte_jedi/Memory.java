@@ -1,53 +1,35 @@
 package com.example.netyaco_.projecte_jedi;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.Set;
+public class Memory extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private Button bt1, bt2, bt3, bt4, bt5, bt6;
-    private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_memory);
 
         setUpViews();
-
-        bt1 = (Button) findViewById(R.id.bt_calc);
-        bt2 = (Button) findViewById(R.id.bt_perfil);
-        bt3 = (Button) findViewById(R.id.bt_memory);
-        bt4 = (Button) findViewById(R.id.bt_ranking);
-        bt5 = (Button) findViewById(R.id.bt_player);
-        bt6 = (Button) findViewById(R.id.bt_proves);
-
-        bt1.setOnClickListener(this);
-        bt2.setOnClickListener(this);
-        bt3.setOnClickListener(this);
-        bt4.setOnClickListener(this);
-        bt5.setOnClickListener(this);
-        bt5.setOnClickListener(this);
     }
 
+
+    /* Codi replicat por miiiiiiiiil
+    ****************************************************************************************
+     */
     private void setUpViews() {
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -135,56 +117,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return super.onOptionsItemSelected(item);
         }
         //return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent;
-        switch (v.getId()) {
-            case R.id.bt_calc:
-                intent = new Intent(getApplicationContext(), Calculadora.class);
-                startActivity(intent);
-                //finish();
-                break;
-            case R.id.bt_memory:
-                intent = new Intent(getApplicationContext(), Memory.class);
-                startActivity(intent);
-                //finish();
-                break;
-            case R.id.bt_ranking:
-                intent = new Intent(getApplicationContext(), Ranking.class);
-                startActivity(intent);
-                //finish();
-                break;
-            case R.id.bt_player:
-                /*AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Error");
-                builder.setMessage("Archivo no encontrado");
-                builder.setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                builder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();*/
-                break;
-            case R.id.bt_perfil:
-                intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                break;
-            case R.id.bt_proves:
-                break;
-            default:
-                break;
-        }
     }
 }
