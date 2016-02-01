@@ -7,22 +7,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f76868"
         android:divider="#000000"
         android:dividerPadding="10dp"
         android:orientation="vertical"
-        android:layout_marginBottom="3dp">
+        android:layout_marginBottom="3dp"
+        android:paddingLeft="5dp">
 
         <TextView
             android:id="@+id/tv_user_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text" />
+            android:text="New Text"
+            android:textStyle="bold"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tv_pass_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text" />
+            android:text="New Text"
+            android:textStyle="italic" />
     </LinearLayout>
 </LinearLayout>
