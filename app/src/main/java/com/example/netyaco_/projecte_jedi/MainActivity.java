@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt3.setOnClickListener(this);
         bt4.setOnClickListener(this);
         bt5.setOnClickListener(this);
-        bt6.setOnClickListener(this);
+        bt5.setOnClickListener(this);
     }
 
     private void setUpViews() {
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //finish();
                 break;
             case R.id.bt_ranking:
-                //intent = new Intent(getApplicationContext(), Intent1.class);
-                //startActivity(intent);
+                intent = new Intent(getApplicationContext(), Ranking.class);
+                startActivity(intent);
                 //finish();
                 break;
             case R.id.bt_player:

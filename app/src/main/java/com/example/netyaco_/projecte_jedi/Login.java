@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         etPass.setText("");
         Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
         startActivity(intent);
+        finish();
     }
 
     public void login (View v) {
@@ -75,7 +76,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
                 startActivity(intent);
-                return;
+                finish();
+                //return;
             }
         }
     }
