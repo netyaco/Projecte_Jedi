@@ -46,10 +46,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         }
         dbHelper.newUser(values, dbHelper.USER_TABLE);
 
-        Toast.makeText(getApplicationContext(), "Usuario añadido correctamente... o no",
+        Toast.makeText(getApplicationContext(), "Usuari afegit correctament... o no",
                 Toast.LENGTH_LONG).show();
         etUser.setText("");
         etPass.setText("");
+        Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+        startActivity(intent);
     }
 
     public void login (View v) {
@@ -63,7 +65,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             return;
         }
         else {
-            if (c.getString(c.getColumnIndex(dbHelper.CN_PASS)).equals(String.valueOf(etPass.getText()))) {
+            if (!c.getString(c.getColumnIndex(dbHelper.CN_PASS)).equals(String.valueOf(etPass.getText()))) {
                 Toast.makeText(getApplicationContext(),"El pass no coincideix",
                         Toast.LENGTH_LONG).show();
                 return;
@@ -71,6 +73,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             else {
                 Toast.makeText(getApplicationContext(),"Login realitzat correctament",
                         Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+                startActivity(intent);
                 return;
             }
         }

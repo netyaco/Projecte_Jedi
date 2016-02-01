@@ -22,7 +22,9 @@
             android:label="Calculadora" />
         <activity android:name=".Settings" />
         <activity android:name=".Login" />
-        <activity android:name=".Fragment_container"></activity>
+        <activity android:name=".Fragment_container" />
+        <activity android:name=".Perfil_usuari" />
+        <activity android:name=".Ranking"></activity>
     </application>
 
 </manifest>

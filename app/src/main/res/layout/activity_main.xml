@@ -13,13 +13,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#858585">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="#444444"
             android:minHeight="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
 
         <LinearLayout
@@ -31,40 +32,40 @@
             android:background="#00ffffff">
 
 
-            <ImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageButton"
+                android:id="@+id/imageView"
                 android:layout_gravity="center_horizontal"
-                android:nestedScrollingEnabled="false"
-                android:background="#00ffffff" />
+                android:src="@drawable/saw_juegos_reunidos_w"
+                android:layout_weight="1" />
 
             <Button
-                android:id="@+id/bt_dialer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Dialer" />
-
-            <Button
-                android:id="@+id/bt_intents"
+                android:id="@+id/bt_perfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Intents" />
+                android:text="Perfil d&apos;usuari" />
 
             <Button
-                android:id="@+id/bt_dialog"
+                android:id="@+id/bt_memory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Dialog" />
+                android:text="Memory" />
+
+            <Button
+                android:id="@+id/bt_ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Rànking" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:id="@+id/bt_login_main"
+                android:text="Reproductor"
+                android:id="@+id/bt_player"
                 android:layout_gravity="center_horizontal" />
 
             <Button
@@ -74,6 +75,14 @@
                 android:text="Calculadora"
                 android:drawableLeft="@drawable/ic_calculator_black_36dp"
                 android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proves"
+                android:id="@+id/bt_proves"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
     <!-- Layout del menú lateral (Navigation View) -->

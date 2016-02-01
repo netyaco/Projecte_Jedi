@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button bt1, bt2, bt3, bt4, bt5;
+    private Button bt1, bt2, bt3, bt4, bt5, bt6;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -34,16 +34,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setUpViews();
 
         bt1 = (Button) findViewById(R.id.bt_calc);
-        bt2 = (Button) findViewById(R.id.bt_dialer);
-        bt3 = (Button) findViewById(R.id.bt_intents);
-        bt4 = (Button) findViewById(R.id.bt_dialog);
-        bt5 = (Button) findViewById(R.id.bt_login_main);
+        bt2 = (Button) findViewById(R.id.bt_perfil);
+        bt3 = (Button) findViewById(R.id.bt_memory);
+        bt4 = (Button) findViewById(R.id.bt_ranking);
+        bt5 = (Button) findViewById(R.id.bt_player);
+        bt6 = (Button) findViewById(R.id.bt_proves);
 
         bt1.setOnClickListener(this);
         bt2.setOnClickListener(this);
         bt3.setOnClickListener(this);
         bt4.setOnClickListener(this);
         bt5.setOnClickListener(this);
+        bt6.setOnClickListener(this);
     }
 
     private void setUpViews() {
@@ -75,13 +77,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.profile:
                         Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
                         break;
-
-                    case R.id.rate:
-                        Toast.makeText(getApplicationContext(), "Rate Selected", Toast.LENGTH_SHORT).show();
+                    case R.id.memory:
+                        Toast.makeText(getApplicationContext(), "Memory Selected", Toast.LENGTH_SHORT).show();
                         break;
-
-                    case R.id.purchase:
-                        Toast.makeText(getApplicationContext(), "Purchase Selected", Toast.LENGTH_SHORT).show();
+                    case R.id.ranking:
+                        Toast.makeText(getApplicationContext(), "Ranking Selected", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.player:
+                        Toast.makeText(getApplicationContext(), "Player Selected", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.calculator:
+                        Toast.makeText(getApplicationContext(), "Calculator Selected", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return true;
@@ -140,18 +146,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 //finish();
                 break;
-            case R.id.bt_dialer:
-                intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
-                startActivity(intent);
+            case R.id.bt_memory:
+                //intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
+                //startActivity(intent);
                 //finish();
                 break;
-            case R.id.bt_intents:
-                intent = new Intent(getApplicationContext(), Intent1.class);
-                startActivity(intent);
+            case R.id.bt_ranking:
+                //intent = new Intent(getApplicationContext(), Intent1.class);
+                //startActivity(intent);
                 //finish();
                 break;
-            case R.id.bt_dialog:
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            case R.id.bt_player:
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Error");
                 builder.setMessage("Archivo no encontrado");
                 builder.setPositiveButton("Ok",
@@ -169,11 +175,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         });
                 AlertDialog dialog = builder.create();
-                dialog.show();
+                dialog.show();*/
                 break;
-            case R.id.bt_login_main:
+            case R.id.bt_perfil:
                 intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
+                break;
+            case R.id.bt_proves:
                 break;
             default:
                 break;

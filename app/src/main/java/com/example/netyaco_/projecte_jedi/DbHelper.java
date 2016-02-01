@@ -58,6 +58,22 @@ public class DbHelper extends SQLiteOpenHelper {
         return c;
     }
 
+    //obtener una lista de coches
+    public Cursor getAllUsers() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] columns = {"user", "pass"};
+        Cursor c = db.query(
+                USER_TABLE,          // The table to query
+                columns,            // The columns to return
+                null,               // The columns for the WHERE clause
+                null,               // The values for the WHERE clause
+                null,               // don't group the rows
+                null,               // don't filter by row groups
+                null                // The sort order
+        );
+        return c;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(USER_TABLE_CREATE);
