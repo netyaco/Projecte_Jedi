@@ -86,15 +86,24 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void update_pass() {
-
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        //values.put(Key, Valor);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
     }
 
     public void update_address() {
-
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        //values.put(Key, Valor);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
     }
 
     public void update_rank() {
-
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        //values.put(Key, Valor);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
     }
 
     @Override
