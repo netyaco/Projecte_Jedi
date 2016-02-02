@@ -34,7 +34,7 @@ public class Ranking extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
 
-        setUpViews();
+        //setUpViews();
 
         dbHelper = new DbHelper(this);
 
@@ -43,7 +43,9 @@ public class Ranking extends AppCompatActivity {
             do {
                 String name = c.getString(c.getColumnIndex(dbHelper.CN_USER));
                 String pass = c.getString(c.getColumnIndex(dbHelper.CN_PASS));
-                User user = new User(name, pass, 0);
+                Integer points = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
+                Integer rank = c.getInt(c.getColumnIndex(dbHelper.CN_RANK));
+                User user = new User(name, pass, points, rank);
                 users.add(user);
             } while (c.moveToNext());
         }
@@ -71,7 +73,7 @@ public class Ranking extends AppCompatActivity {
 
     /* Codi replicat por miiiiiiiiil
 ****************************************************************************************
- */
+ *//*
     private void setUpViews() {
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -159,9 +161,9 @@ public class Ranking extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         //return super.onOptionsItemSelected(item);
-    }
+    }*/
 
-    /*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -182,5 +184,5 @@ public class Ranking extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 }

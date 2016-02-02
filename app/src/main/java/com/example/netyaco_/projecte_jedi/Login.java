@@ -59,6 +59,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             ContentValues values = new ContentValues();
             values.put("user", String.valueOf(etUser.getText()));
             values.put("pass", String.valueOf(etPass.getText()));
+            values.put("points", 0);
+            values.put("rank", 0);
             Cursor c = dbHelper.getUser(String.valueOf(etUser.getText()));
             if (c.moveToFirst()) {
                 Toast.makeText(getApplicationContext(), "L'usuari ja exixteix",
@@ -69,10 +71,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
             Toast.makeText(getApplicationContext(), "Usuari afegit correctament... o no",
                     Toast.LENGTH_LONG).show();
+            Bundle bundle = new Bundle();
+            bundle.putString("user", etUser.getText().toString());
+            bundle.putInt("puntuacio", 0);
+            bundle.putInt("ranking", 0);
+            Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
             etUser.setText("");
             etPass.setText("");
-            Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
-            startActivity(intent);
             finish();
         }
     }
@@ -104,8 +111,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 } else {
                     Toast.makeText(getApplicationContext(), "Login realitzat correctament",
                             Toast.LENGTH_LONG).show();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user", etUser.getText().toString());
+                    bundle.putInt("puntuacio", c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
+                    bundle.putInt("ranking", 0);
                     Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+                    intent.putExtras(bundle);
                     startActivity(intent);
+                    etUser.setText("");
+                    etPass.setText("");
+
+                    //Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+                    //startActivity(intent);
                     finish();
                     //return;
                 }

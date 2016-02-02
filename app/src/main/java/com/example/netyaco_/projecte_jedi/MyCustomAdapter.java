@@ -36,7 +36,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.Adapte
     @Override
     public void onBindViewHolder(MyCustomAdapter.AdapterViewHolder adapterViewHolder, int position) {
         adapterViewHolder.user.setText(users.get(position).getName());
-        adapterViewHolder.pass.setText(users.get(position).getPass());
+        adapterViewHolder.points.setText(users.get(position).getPoints());
     }
 
     @Override
@@ -53,14 +53,14 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.Adapte
         */
 
         public TextView user;
-        public TextView pass;
+        //public TextView pass;
         public TextView points;
         public View v;
         public AdapterViewHolder(View itemView) {
             super(itemView);
             this.v = itemView;
             this.user = (TextView) itemView.findViewById(R.id.tv_user_row);
-            this.pass = (TextView) itemView.findViewById(R.id.tv_pass_row);
+            this.points = (TextView) itemView.findViewById(R.id.tv_points_row);
         }
     }
 
