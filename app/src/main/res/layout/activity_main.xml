@@ -37,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:src="@drawable/saw_juegos_reunidos_w" />
 
             <Button
                 android:id="@+id/bt_perfil"
