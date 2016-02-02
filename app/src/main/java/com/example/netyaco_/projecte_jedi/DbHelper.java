@@ -24,14 +24,15 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String CN_PASS = "pass";
     public static final String CN_POINTS = "points";
     public static final String CN_RANK = "rank";
-    //public static final String CN_POINTS = "points";
+    public static final String CN_ADDRESS = "address";
 
     //sentencia global de cracion de la base de datos
     public static final String USER_TABLE_CREATE = "CREATE TABLE " + USER_TABLE + "( " +
             CN_USER + " TEXT PRIMARY KEY UNIQUE, " +
             CN_PASS + " TEXT, " +
             CN_POINTS + " INTEGER, " +
-            CN_RANK + " INTEGER);";
+            CN_RANK + " INTEGER, " +
+            CN_ADDRESS + " TEXT);";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,7 +48,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public Cursor getUser (String user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "pass", "points", "rank"};
+        String[] columns = {"user", "pass", "points", "rank", "address"};
         String[] where = {user};
         Cursor c = db.query(
                 USER_TABLE,  // The table to query
@@ -64,7 +65,7 @@ public class DbHelper extends SQLiteOpenHelper {
     //obtener una lista de coches
     public Cursor getAllUsers() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "points", "rank"};
+        String[] columns = {"user", "pass", "points", "rank", "address"};
         Cursor c = db.query(
                 USER_TABLE,          // The table to query
                 columns,            // The columns to return
@@ -75,6 +76,25 @@ public class DbHelper extends SQLiteOpenHelper {
                 null                // The sort order
         );
         return c;
+    }
+
+    public void update_points() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        //values.put(Key, Valor);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
+    }
+
+    public void update_pass() {
+
+    }
+
+    public void update_address() {
+
+    }
+
+    public void update_rank() {
+
     }
 
     @Override

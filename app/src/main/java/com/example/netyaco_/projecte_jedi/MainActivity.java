@@ -160,25 +160,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //finish();
                 break;
             case R.id.bt_player:
-                /*AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Error");
-                builder.setMessage("Archivo no encontrado");
-                builder.setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                builder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                AlertDialog dialog = builder.create();
-                dialog.show();*/
+                intent = new Intent(getApplicationContext(), Player.class);
+                startActivity(intent);
                 break;
             case R.id.bt_perfil:
                 SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);

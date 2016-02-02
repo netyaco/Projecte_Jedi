@@ -109,7 +109,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Signout"
+            android:text="Logout"
             android:id="@+id/bt_logout"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1" />

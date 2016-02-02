@@ -33,7 +33,8 @@
             android:name=".Memory"
             android:label="Memory" />
         <activity android:name=".Modificar_dades" />
-        <activity android:name=".Player"></activity>
+        <activity android:name=".Player" />
+        <activity android:name=".Registre"></activity>
     </application>
 
 </manifest>
