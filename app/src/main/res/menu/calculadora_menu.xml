@@ -4,7 +4,6 @@
 
     <item
         android:id="@+id/menu_call"
-        android:icon="@drawable/ic_phone_black_36dp"
         android:title="Settings"
         app:showAsAction="ifRoom" />
     <item

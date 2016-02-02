@@ -38,7 +38,6 @@
                 android:layout_width="112dp"
                 android:layout_height="147dp"
                 android:id="@+id/imageView2"
-                android:src="@drawable/icon_user"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
 

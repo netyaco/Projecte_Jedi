@@ -37,10 +37,10 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculadora);
 
-        setUpViews();
+        //setUpViews();
 
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         result = (TextView) findViewById(R.id.tv_result);
         bt0 = (Button) findViewById(R.id.bt_0);
@@ -284,7 +284,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     /* Codiiiiiiii
     *********************************************************************
      */
-
+/*
     private void setUpViews() {
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -351,7 +351,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
 
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
-    }
+    }*/
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
