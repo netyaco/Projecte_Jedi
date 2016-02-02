@@ -97,7 +97,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_call:
-                String call = "tel:" + result.getText();
+                String call = "tel:" + result.getText().toString();
                 Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse(call));
                 startActivity(intent2);
                 //finish();
@@ -357,12 +357,12 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         s = result.getText().toString();
-        outState.putString("result", s);
+        /*outState.putString("result", s);
         outState.putBoolean("first", first);
         outState.putDouble("val1", val1);
         outState.putDouble("val2", val2);
         outState.putDouble("total", total);
-        outState.putDouble("ans", ans);
+        outState.putDouble("ans", ans);*/
     }
 
 
@@ -371,11 +371,11 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         super.onRestoreInstanceState(savedInstanceState);
         if(savedInstanceState != null) {
             result.setText(savedInstanceState.getString("result"));
-            first = savedInstanceState.getBoolean("first");
+            /*first = savedInstanceState.getBoolean("first");
             val1 = savedInstanceState.getDouble("val1");
             val2 = savedInstanceState.getDouble("val2");
             total = savedInstanceState.getDouble("total");
-            ans = savedInstanceState.getDouble("ans");
+            ans = savedInstanceState.getDouble("ans");*/
         }
     }
 }

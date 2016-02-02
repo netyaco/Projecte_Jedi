@@ -64,7 +64,7 @@ public class DbHelper extends SQLiteOpenHelper {
     //obtener una lista de coches
     public Cursor getAllUsers() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "pass", "points", "rank"};
+        String[] columns = {"user", "points", "rank"};
         Cursor c = db.query(
                 USER_TABLE,          // The table to query
                 columns,            // The columns to return

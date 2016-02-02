@@ -1,8 +1,11 @@
 package com.example.netyaco_.projecte_jedi;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -178,8 +181,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dialog.show();*/
                 break;
             case R.id.bt_perfil:
-                intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
+                SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+                String user_res = pref.getString("user", null);
+                if (user_res == null) {
+                    intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+                } else {
+                    DbHelper dbHelper = new DbHelper(this);
+                    Cursor c = dbHelper.getUser(user_res);
+                    c.moveToFirst();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user", user_res);
+                    bundle.putInt("puntuacio", c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
+                    bundle.putInt("ranking", 0);
+
+                    SharedPreferences.Editor editor = pref.edit();
+
+                    editor.putString("user", user_res);
+                    editor.commit();
+
+                    intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                    //Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+                    //startActivity(intent);
+                    //finish();
+                    //return;
+                }
+
+
                 break;
             case R.id.bt_proves:
                 break;

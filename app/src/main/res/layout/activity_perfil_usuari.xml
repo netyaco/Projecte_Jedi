@@ -102,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Modificar dades"
-            android:id="@+id/button"
+            android:id="@+id/bt_canvi"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1" />
 
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Signout"
-            android:id="@+id/button2"
+            android:id="@+id/bt_logout"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1" />
     </LinearLayout>

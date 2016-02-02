@@ -1,7 +1,9 @@
 package com.example.netyaco_.projecte_jedi;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private Button btLog, btNew;
     private EditText etUser, etPass, etMail;
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword;
+    public SharedPreferences pref;
 
     DbHelper dbHelper;
 
@@ -27,6 +30,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
 
         btLog = (Button) findViewById(R.id.bt_login);
         btNew = (Button) findViewById(R.id.bt_new_user);
@@ -75,6 +80,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             bundle.putString("user", etUser.getText().toString());
             bundle.putInt("puntuacio", 0);
             bundle.putInt("ranking", 0);
+
+            SharedPreferences.Editor editor = pref.edit();
+
+            editor.putString("user", etUser.getText().toString());
+            editor.commit();
             Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -116,6 +126,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     bundle.putString("user", etUser.getText().toString());
                     bundle.putInt("puntuacio", c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
                     bundle.putInt("ranking", 0);
+                    SharedPreferences.Editor editor = pref.edit();
+
+                    editor.putString("user", etUser.getText().toString());
+                    editor.commit();
+
                     Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
