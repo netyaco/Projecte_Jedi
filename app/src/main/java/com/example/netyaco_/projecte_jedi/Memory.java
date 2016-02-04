@@ -10,9 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-public class Memory extends AppCompatActivity {
+public class Memory extends AppCompatActivity implements View.OnClickListener{
+
+    private ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8, iv9, iv10, iv11,
+            iv12, iv13, iv14, iv15, iv16;
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -25,6 +29,8 @@ public class Memory extends AppCompatActivity {
 
         setUpViews();
     }
+
+
 
 
     /* Codi replicat por miiiiiiiiil
@@ -117,5 +123,10 @@ public class Memory extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         //return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

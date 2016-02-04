@@ -53,19 +53,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     public void newUser (View v) {
         if (etUser.getText().toString().isEmpty()) {
             inputLayoutName.setErrorEnabled(true);
-            inputLayoutName.setError("You need to enter a name");
+            inputLayoutName.setError("Has d'introduïr un nom");
         }
         else if (etPass.getText().toString().isEmpty()) {
             inputLayoutName.setErrorEnabled(false);
             inputLayoutPassword.setErrorEnabled(true);
-            inputLayoutPassword.setError("You need to enter a pass");
+            inputLayoutPassword.setError("Has d'introduïr una contrassenya");
         }
         else {
             ContentValues values = new ContentValues();
             values.put("user", String.valueOf(etUser.getText()));
             values.put("pass", String.valueOf(etPass.getText()));
             values.put("points", 0);
-            values.put("rank", 0);
             Cursor c = dbHelper.getUser(String.valueOf(etUser.getText()));
             if (c.moveToFirst()) {
                 Toast.makeText(getApplicationContext(), "L'usuari ja exixteix",
@@ -79,13 +78,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             Bundle bundle = new Bundle();
             bundle.putString("user", etUser.getText().toString());
             bundle.putInt("puntuacio", 0);
-            bundle.putInt("ranking", 0);
+            bundle.putString("direccio", "---");
 
             SharedPreferences.Editor editor = pref.edit();
 
             editor.putString("user", etUser.getText().toString());
             editor.commit();
-            Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+            Intent intent = new Intent(getApplicationContext(), Registre.class);
             intent.putExtras(bundle);
             startActivity(intent);
             etUser.setText("");
@@ -97,17 +96,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     public void login (View v) {
         if (etUser.getText().toString().isEmpty()) {
             inputLayoutName.setErrorEnabled(true);
-            inputLayoutName.setError("You need to enter a name");
+            inputLayoutName.setError("Has d'introduïr un nom");
         }
         else if (etPass.getText().toString().isEmpty()) {
             inputLayoutName.setErrorEnabled(false);
             inputLayoutPassword.setErrorEnabled(true);
-            inputLayoutPassword.setError("You need to enter a pass");
+            inputLayoutPassword.setError("Has d'introduir una contrassenya");
         }
         else {
-            ContentValues values = new ContentValues();
-            values.put("user", String.valueOf(etUser.getText()));
-            values.put("pass", String.valueOf(etPass.getText()));
+            //ContentValues values = new ContentValues();
+            //values.put("user", String.valueOf(etUser.getText()));
+            //values.put("pass", String.valueOf(etPass.getText()));
             Cursor c = dbHelper.getUser(String.valueOf(etUser.getText()));
             if (!c.moveToFirst()) {
                 Toast.makeText(getApplicationContext(), "L'usuari no exixteix",
@@ -123,19 +122,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             Toast.LENGTH_LONG).show();
 
                     Bundle bundle = new Bundle();
-                    bundle.putString("user", etUser.getText().toString());
-                    bundle.putInt("puntuacio", c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
-                    bundle.putInt("ranking", 0);
+                    bundle.putString(dbHelper.USER_TABLE, etUser.getText().toString());
+                    bundle.putInt(dbHelper.CN_POINTS,
+                            c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
+                    bundle.putString(dbHelper.CN_ADDRESS,
+                            c.getString(c.getColumnIndex(dbHelper.CN_ADDRESS)));
                     SharedPreferences.Editor editor = pref.edit();
-
                     editor.putString("user", etUser.getText().toString());
                     editor.commit();
 
                     Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                    etUser.setText("");
-                    etPass.setText("");
+                    //etUser.setText("");
+                    //etPass.setText("");
 
                     //Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
                     //startActivity(intent);

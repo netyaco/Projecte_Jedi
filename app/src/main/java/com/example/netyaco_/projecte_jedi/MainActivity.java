@@ -142,30 +142,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        String user_res = pref.getString("user", null);
         Intent intent;
         switch (v.getId()) {
             case R.id.bt_calc:
                 intent = new Intent(getApplicationContext(), Calculadora.class);
                 startActivity(intent);
-                //finish();
                 break;
             case R.id.bt_memory:
-                intent = new Intent(getApplicationContext(), Memory.class);
+                if (user_res == null) {
+                    Toast.makeText(getApplicationContext(), "Cap usuari registrat",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    DbHelper dbHelper = new DbHelper(this);
+                    Cursor c = dbHelper.getUser(user_res);
+                    c.moveToFirst();
+                    String aux = c.getString(c.getColumnIndex(dbHelper.CN_USER));
+                    Toast.makeText(getApplicationContext(), "Sort, "+ aux,
+                            Toast.LENGTH_LONG).show();
+                }
+                intent = new Intent(getApplicationContext(), Memory3.class);
                 startActivity(intent);
-                //finish();
                 break;
             case R.id.bt_ranking:
                 intent = new Intent(getApplicationContext(), Ranking.class);
                 startActivity(intent);
-                //finish();
                 break;
             case R.id.bt_player:
                 intent = new Intent(getApplicationContext(), Player.class);
                 startActivity(intent);
                 break;
             case R.id.bt_perfil:
-                SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
-                String user_res = pref.getString("user", null);
                 if (user_res == null) {
                     intent = new Intent(getApplicationContext(), Login.class);
                     startActivity(intent);
@@ -174,26 +183,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Cursor c = dbHelper.getUser(user_res);
                     c.moveToFirst();
                     Bundle bundle = new Bundle();
-                    bundle.putString("user", user_res);
-                    bundle.putInt("puntuacio", c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
-                    bundle.putInt("ranking", 0);
-
+                    bundle.putString(dbHelper.CN_USER, user_res);
+                    bundle.putInt(dbHelper.CN_POINTS,
+                            c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
+                    bundle.putString(dbHelper.CN_ADDRESS,
+                            c.getString(c.getColumnIndex(dbHelper.CN_ADDRESS)));
                     SharedPreferences.Editor editor = pref.edit();
-
                     editor.putString("user", user_res);
                     editor.commit();
 
                     intent = new Intent(getApplicationContext(), Perfil_usuari.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
-
-                    //Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
-                    //startActivity(intent);
-                    //finish();
-                    //return;
                 }
-
-
                 break;
             case R.id.bt_proves:
                 break;

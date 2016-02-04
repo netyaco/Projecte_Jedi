@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class Perfil_usuari extends AppCompatActivity implements View.OnClickListener{
 
-    TextView tv_user, tv_punt, tv_rank;
+    TextView tv_user, tv_punt, tv_direccio;
     Button bt_canvi, bt_logout;
     public SharedPreferences pref;
 
@@ -23,7 +23,7 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
 
         tv_user = (TextView) findViewById(R.id.tv_user_perfil);
         tv_punt = (TextView) findViewById(R.id.tv_puntuacio_perfil);
-        tv_rank = (TextView) findViewById(R.id.tv_ranking_perfil);
+        tv_direccio = (TextView) findViewById(R.id.tv_direccio_perfil);
         bt_canvi = (Button) findViewById(R.id.bt_canvi);
         bt_logout = (Button) findViewById(R.id.bt_logout);
 
@@ -34,11 +34,11 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
 
         String user = bundle.getString("user");
         Integer punt = bundle.getInt("puntuacio");
-        Integer rank = bundle.getInt("ranking");
+        String direccio = bundle.getString("direccio");
 
         tv_user.setText(user.toString());
         tv_punt.setText(punt.toString());
-        tv_rank.setText(rank.toString());
+        tv_direccio.setText(direccio.toString());
 
     }
 

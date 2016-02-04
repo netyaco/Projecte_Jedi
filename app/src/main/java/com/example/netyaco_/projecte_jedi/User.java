@@ -7,13 +7,12 @@ public class User {
 
     private String name;
     private String pass;
-    private Integer points, rank;
+    private Integer points;
 
-    User(String name, String pass, Integer points, Integer rank) {
+    User(String name, String pass, Integer points) {
         this.name = name;
         this.pass = pass;
         this.points = points;
-        this.rank = rank;
     }
 
     User() {
@@ -30,10 +29,6 @@ public class User {
 
     public Integer getPoints() {
         return points;
-    }
-
-    public Integer getRank() {
-        return rank;
     }
 
     public void setName(String name) {

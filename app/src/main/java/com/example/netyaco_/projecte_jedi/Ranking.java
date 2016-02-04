@@ -34,6 +34,11 @@ public class Ranking extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
 
+        // Initializing Toolbar and setting it as the actionbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
         //setUpViews();
 
         dbHelper = new DbHelper(this);
@@ -44,9 +49,10 @@ public class Ranking extends AppCompatActivity {
                 String name = c.getString(c.getColumnIndex(dbHelper.CN_USER));
                 String pass = c.getString(c.getColumnIndex(dbHelper.CN_PASS));
                 Integer points = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
-                Integer rank = c.getInt(c.getColumnIndex(dbHelper.CN_RANK));
-                User user = new User(name, pass, points, rank);
-                users.add(user);
+                if (points != 0) {
+                    User user = new User(name, pass, points);
+                    users.add(user);
+                }
             } while (c.moveToNext());
         }
 

@@ -23,7 +23,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String CN_USER = "user";
     public static final String CN_PASS = "pass";
     public static final String CN_POINTS = "points";
-    public static final String CN_RANK = "rank";
+    //public static final String CN_RANK = "rank";
     public static final String CN_ADDRESS = "address";
 
     //sentencia global de cracion de la base de datos
@@ -31,7 +31,6 @@ public class DbHelper extends SQLiteOpenHelper {
             CN_USER + " TEXT PRIMARY KEY UNIQUE, " +
             CN_PASS + " TEXT, " +
             CN_POINTS + " INTEGER, " +
-            CN_RANK + " INTEGER, " +
             CN_ADDRESS + " TEXT);";
 
     public DbHelper(Context context) {
@@ -48,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public Cursor getUser (String user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "pass", "points", "rank", "address"};
+        String[] columns = {"user", "pass", "points", "address"};
         String[] where = {user};
         Cursor c = db.query(
                 USER_TABLE,  // The table to query
@@ -65,7 +64,7 @@ public class DbHelper extends SQLiteOpenHelper {
     //obtener una lista de coches
     public Cursor getAllUsers() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "pass", "points", "rank", "address"};
+        String[] columns = {"user", "pass", "points", "address"};
         Cursor c = db.query(
                 USER_TABLE,          // The table to query
                 columns,            // The columns to return
@@ -73,16 +72,46 @@ public class DbHelper extends SQLiteOpenHelper {
                 null,               // The values for the WHERE clause
                 null,               // don't group the rows
                 null,               // don't filter by row groups
-                null                // The sort order
+                CN_POINTS + " ASC"                // The sort order
         );
         return c;
     }
 
-    public void update_points() {
+    public Cursor getAllUsersDesc() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] columns = {"user", "pass", "points", "address"};
+        Cursor c = db.query(
+                USER_TABLE,          // The table to query
+                columns,            // The columns to return
+                null,               // The columns for the WHERE clause
+                null,               // The values for the WHERE clause
+                null,               // don't group the rows
+                null,               // don't filter by row groups
+                CN_POINTS + " DESC"                // The sort order
+        );
+        return c;
+    }
+
+    public Cursor getAllUsersName() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] columns = {"user", "pass", "points", "address"};
+        Cursor c = db.query(
+                USER_TABLE,          // The table to query
+                columns,            // The columns to return
+                null,               // The columns for the WHERE clause
+                null,               // The values for the WHERE clause
+                null,               // don't group the rows
+                null,               // don't filter by row groups
+                CN_USER + " DESC"                // The sort order
+        );
+        return c;
+    }
+
+    public void update_points(String user, Integer points) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put(Key, Valor);
-        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
+        values.put(CN_POINTS, points);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{user});
     }
 
     public void update_pass() {
@@ -92,18 +121,11 @@ public class DbHelper extends SQLiteOpenHelper {
         db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
     }
 
-    public void update_address() {
+    public void update_address(String name, String addres) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put(Key, Valor);
-        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
-    }
-
-    public void update_rank() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        //values.put(Key, Valor);
-        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
+        values.put(CN_ADDRESS, addres);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{name});
     }
 
     @Override

@@ -36,7 +36,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.Adapte
     @Override
     public void onBindViewHolder(MyCustomAdapter.AdapterViewHolder adapterViewHolder, int position) {
         adapterViewHolder.user.setText(users.get(position).getName());
-        adapterViewHolder.points.setText(users.get(position).getPoints().toString());
+        adapterViewHolder.points.setText("Puntuació: "+users.get(position).getPoints().toString());
     }
 
     @Override

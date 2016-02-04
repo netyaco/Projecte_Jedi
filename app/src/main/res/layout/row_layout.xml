@@ -5,27 +5,40 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="#000000"
-        android:dividerPadding="10dp"
-        android:orientation="vertical"
-        android:layout_marginBottom="3dp"
-        android:paddingLeft="5dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_user_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:textStyle="bold"
-            android:textSize="20dp" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView3"
+            android:src="@drawable/saw_icon" />
 
-        <TextView
-            android:id="@+id/tv_points_row"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:textStyle="italic" />
+            android:divider="#000000"
+            android:dividerPadding="10dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="3dp"
+            android:paddingLeft="5dp">
+
+            <TextView
+                android:id="@+id/tv_user_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:textStyle="bold"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tv_points_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:textStyle="italic" />
+        </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>
