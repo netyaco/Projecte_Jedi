@@ -21,14 +21,11 @@ import java.util.Random;
 
 public class Memory3 extends AppCompatActivity {
 
-    //public TextView intents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory3);
-
-        //intents = (TextView) findViewById(R.id.tv_intents);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -37,20 +34,15 @@ public class Memory3 extends AppCompatActivity {
         }
     }
 
-    /**
-     * A fragment containing our memory game.
-     */
+    // Fragment del Memory
     public class MemoryGameFragment extends Fragment {
 
-        TextView intents;
+        private TextView intents;
         private static final int NUM_BUTTONS = 16;
-        //private static final String LOG_TAG = MemoryGameFragment.class.getSimpleName();
-
-        private boolean busy;
+        private boolean pause;
         private Handler handler = new Handler();
-
         private Button[] buttons = new Button[NUM_BUTTONS];
-        // Art by Michael B. Myers Jr. at http://drbl.in/bhbA
+
         private int[] images = new int[]{
                 R.drawable.card_c3po,
                 R.drawable.card_chewie,
@@ -59,183 +51,156 @@ public class Memory3 extends AppCompatActivity {
                 R.drawable.mamory1,
                 R.drawable.memory2,
                 R.drawable.memory3,
-                R.drawable.memory4};
-        private int[] buttonToImageIndex = new int[NUM_BUTTONS];
+                R.drawable.memory4
+        };
 
-        private Chronometer timer;
-        private boolean firstPairRevealed;
-        private boolean[] buttonPermanentlyRevealed = new boolean[NUM_BUTTONS];
-        private int lastIndexClicked;
-        private static final int NONE = -1;
+        private int[] assignarIndexImatges = new int[NUM_BUTTONS];
+
+        private boolean[] imatgesRevelades = new boolean[NUM_BUTTONS];
+        private int darrerIndexClicat;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.memory3_fragment, container, false);
 
-            // Get a reference to each button, store in our buttons array
+            // Guardar les referencies als botons
             for(int i = 0; i < NUM_BUTTONS; i++){
-                buttons[i] = (Button) rootView.findViewById(getButtonId("button" + i));
+                buttons[i] = (Button) rootView.findViewById(obtenirIdBoto("button" + i));
             }
 
-            // Each button behaves the same; on click, call showPicture with a reference to the clicked button
+            // Activem el click a cada botó
             for(int i = 0; i < buttons.length; i++){
                 final int index = i;
                 buttons[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onButtonClicked(index, buttons[index]);
+                        botoClicat(index, buttons[index]);
                     }
                 });
             }
 
             intents = (TextView) rootView.findViewById(R.id.tv_intents);
-            //timer = (Chronometer) rootView.findViewById(R.id.timer);
 
-            busy = false;
-            lastIndexClicked = NONE;
+            pause = false;
+            darrerIndexClicat = -1;
             resetButtons();
 
             return rootView;
         }
 
-        /** A handy (but not recommended) way to retrieve a resource id by name in code. */
-        private int getButtonId(final String buttonIdName){
-            final int buttonId = getResources().getIdentifier(buttonIdName, "id", getActivity().getPackageName());
-            if(0 == buttonId){
-                // uh oh. better not even try..
-                //Log.e(LOG_TAG, "Could not find button with id " + buttonIdName);
-                //throw new RuntimeException("Cannot find necessary button..");
-            }
+        private int obtenirIdBoto(final String buttonIdName){
+            final int buttonId = getResources().getIdentifier(buttonIdName, 
+                    "id", getActivity().getPackageName());
             return buttonId;
         }
 
-        /** Reset the image of each button to the default back. */
         private void resetButtons(){
-            for(int i = 0; i < buttonPermanentlyRevealed.length; i++){
-                buttonPermanentlyRevealed[i] = false;
+            for(int i = 0; i < imatgesRevelades.length; i++){
+                imatgesRevelades[i] = false;
             }
-            firstPairRevealed = false;
-
             for(Button b : buttons){
                 b.setBackgroundResource(R.drawable.card_back);
             }
 
-            randomizeButtonImages();
+            mesclarImatgesBotons();
         }
 
-        private void randomizeButtonImages(){
-            if(images.length < NUM_BUTTONS / 2){
-                //Log.e(LOG_TAG, images.length + " images are not enough for " + NUM_BUTTONS + " buttons.");
-                //throw new RuntimeException("Not enough images!");
-            }
+        private void mesclarImatgesBotons(){
 
-            // Randomize button images
+            // Mesclar imatges
             Random random = new Random();
             int[] count = new int[images.length];
             for(int i = 0; i < buttons.length; i++){
-                // Ensure max 2 of any given image are chosen
-                // Dirty solution, may not scale nicely depending on number of buttons / images
-                int candidateImageIndex = random.nextInt(images.length);
-                while(count[candidateImageIndex] >= 2){
-                    candidateImageIndex = random.nextInt(images.length);
+                int possibleImatge = random.nextInt(images.length);
+                while(count[possibleImatge] >= 2){
+                    possibleImatge = random.nextInt(images.length);
                 }
-
-                count[candidateImageIndex]++;
-                buttonToImageIndex[i] = candidateImageIndex;
+                count[possibleImatge]++;
+                assignarIndexImatges[i] = possibleImatge;
             }
         }
 
-        private void hideUnrevealedButtons(){
+        private void ocultarImatges(){
             for(int i = 0; i < buttons.length; i++){
-                if(buttonPermanentlyRevealed[i]){
-                    buttons[i].setBackgroundResource(images[buttonToImageIndex[i]]);
+                if(imatgesRevelades[i]){
+                    buttons[i].setBackgroundResource(images[assignarIndexImatges[i]]);
                 } else {
                     buttons[i].setBackgroundResource(R.drawable.card_back);
                 }
             }
         }
 
-        private void onButtonClicked(int indexClicked, Button b){
-            if(busy) return;
-            if(buttonPermanentlyRevealed[indexClicked]) return; // Nothing to do here..
+        private void botoClicat(int indexClicked, Button b){
+            if(pause) return;
+            if(imatgesRevelades[indexClicked]) return;
 
-            // Set the image of the button to its corresponding picture.
-            b.setBackgroundResource(images[buttonToImageIndex[indexClicked]]);
+            // Assignem la imatge al boto corresponent
+            b.setBackgroundResource(images[assignarIndexImatges[indexClicked]]);
 
-            if(NONE == lastIndexClicked){
-                // This is the first button clicked.
-                lastIndexClicked = indexClicked;
-
-                if(!firstPairRevealed){
-                    //hideTimer();
-                }
-            } else if(lastIndexClicked != indexClicked){
-                // A unique second button was clicked!
-                if(!firstPairRevealed){
-                    //startTimer();
-                    firstPairRevealed = true;
-                }
-
-                if(match(lastIndexClicked, indexClicked)){
-                    buttonPermanentlyRevealed[lastIndexClicked] = true;
-                    buttonPermanentlyRevealed[indexClicked] = true;
-                    lastIndexClicked = NONE;
+            if(darrerIndexClicat == -1){
+                darrerIndexClicat = indexClicked; //Prinera imatge clicada
+            } else if(darrerIndexClicat != indexClicked){
+                if(trobat(darrerIndexClicat, indexClicked)){
+                    imatgesRevelades[darrerIndexClicat] = true;
+                    imatgesRevelades[indexClicked] = true;
+                    darrerIndexClicat = -1;
 
                     Integer val = Integer.valueOf((String)intents.getText());
                     val++;
                     intents.setText(val.toString());
-                    checkVictoryState();
+                    comprovarFinal();
                 } else {
-                    lastIndexClicked = NONE;
+                    darrerIndexClicat = -1;
 
                     Integer val = Integer.valueOf((String)intents.getText());
                     val++;
                     intents.setText(val.toString());
 
-                    // Do not let the user perform clicks while we are waiting
-                    busy = true;
+                    // Esperem... Hauria de ser amb Threads, però de moment no hi son
+                    pause = true;
 
-                    // Call the hideUnrevealedButtons method after a delay
+                    // Tornem a cridar a ocultarImatges
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            hideUnrevealedButtons();
-                            busy = false;
+                            ocultarImatges();
+                            pause = false;
                         }
                     }, 2000);
                 }
             }
         }
-
-        /** @return true if buttons at given indices have an identical picture. */
-        private boolean match(int firstButtonIndex, int secondButtonIndex){
-            return buttonToImageIndex[firstButtonIndex] == buttonToImageIndex[secondButtonIndex];
+        
+        private boolean trobat(int firstButtonIndex, int secondButtonIndex){
+            return assignarIndexImatges[firstButtonIndex] == assignarIndexImatges[secondButtonIndex];
         }
-
-        /** Checks if the player has won the game. If so, resets the game.*/
-        private void checkVictoryState(){
-            for(boolean revealed : buttonPermanentlyRevealed){
-                if(!revealed) return; // if any button has not been revealed, the game is on!
+        
+        private void comprovarFinal(){
+            // Si encara queda alguna imatges sense mostrar, es continua amb el joc
+            for(boolean destapades : imatgesRevelades){
+                if(!destapades) return;
             }
-
-            //stopTimer();
-
-            // Congratulate the player!
-
+            
+            // Totes les imatges revelades, guardem la puntuació del jugador
             SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
             String user_res = pref.getString("user", null);
             DbHelper dbHelper = new DbHelper(getApplicationContext());
-            Cursor c = dbHelper.getUser(user_res);
-            c.moveToFirst();
-            Integer aux = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
-            aux += Integer.valueOf((String)intents.getText());
-            dbHelper.update_points(user_res, aux);
-            Toast.makeText(getActivity(), "Congratulations! You win!", Toast.LENGTH_SHORT).show();
+            if (user_res != null) {
+                Cursor c = dbHelper.getUser(user_res);
+                if (c.moveToFirst()) {
+                    Integer aux = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
+                    aux += Integer.valueOf((String) intents.getText());
+                    dbHelper.update_points(user_res, aux);
+                }
+            }
+
+            Toast.makeText(getActivity(), "Facilitats! Has completat el joc", 
+                    Toast.LENGTH_SHORT).show();
 
             intents.setText("0");
 
-            // Reset the game after a short delay
+            // Fem reset al joc
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -243,19 +208,5 @@ public class Memory3 extends AppCompatActivity {
                 }
             }, 1400);
         }
-
-        /*private void startTimer(){
-            timer.setBase(SystemClock.elapsedRealtime());
-            timer.start();
-            timer.setVisibility(View.VISIBLE);
-        }
-
-        private void stopTimer(){
-            timer.stop();
-        }
-
-        private void hideTimer(){
-            timer.setVisibility(View.GONE);
-        }*/
     }
 }
