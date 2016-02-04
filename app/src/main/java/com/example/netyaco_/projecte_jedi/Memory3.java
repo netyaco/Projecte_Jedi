@@ -1,15 +1,22 @@
 package com.example.netyaco_.projecte_jedi;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,11 +28,16 @@ import java.util.Random;
 
 public class Memory3 extends AppCompatActivity {
 
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory3);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -34,14 +46,59 @@ public class Memory3 extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.memory_menu, menu);
+        return true;
+        //return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reset_menu:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setMessage("Segur que vols reiniciar el joc?");
+                alertDialogBuilder.setPositiveButton("Dale", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.container, new MemoryGameFragment())
+                                .commit();
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton("Ehm... Nop", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //finish();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                //break;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        //return super.onOptionsItemSelected(item);
+    }
+
     // Fragment del Memory
     public class MemoryGameFragment extends Fragment {
+
+        //private Toolbar toolbar;
+
+
 
         private TextView intents;
         private static final int NUM_BUTTONS = 16;
         private boolean pause;
         private Handler handler = new Handler();
         private Button[] buttons = new Button[NUM_BUTTONS];
+        private Integer punts;
 
         private int[] images = new int[]{
                 R.drawable.card_c3po,
@@ -82,6 +139,9 @@ public class Memory3 extends AppCompatActivity {
 
             intents = (TextView) rootView.findViewById(R.id.tv_intents);
 
+            //toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+            //setSupportActionBar(toolbar);
+
             pause = false;
             darrerIndexClicat = -1;
             resetButtons();
@@ -90,7 +150,7 @@ public class Memory3 extends AppCompatActivity {
         }
 
         private int obtenirIdBoto(final String buttonIdName){
-            final int buttonId = getResources().getIdentifier(buttonIdName, 
+            final int buttonId = getResources().getIdentifier(buttonIdName,
                     "id", getActivity().getPackageName());
             return buttonId;
         }
@@ -146,16 +206,16 @@ public class Memory3 extends AppCompatActivity {
                     imatgesRevelades[indexClicked] = true;
                     darrerIndexClicat = -1;
 
-                    Integer val = Integer.valueOf((String)intents.getText());
-                    val++;
-                    intents.setText(val.toString());
+                    punts = Integer.valueOf((String)intents.getText());
+                    punts++;
+                    intents.setText(punts.toString());
                     comprovarFinal();
                 } else {
                     darrerIndexClicat = -1;
 
-                    Integer val = Integer.valueOf((String)intents.getText());
-                    val++;
-                    intents.setText(val.toString());
+                    punts = Integer.valueOf((String)intents.getText());
+                    punts++;
+                    intents.setText(punts.toString());
 
                     // Esperem... Hauria de ser amb Threads, però de moment no hi son
                     pause = true;
@@ -189,15 +249,33 @@ public class Memory3 extends AppCompatActivity {
             if (user_res != null) {
                 Cursor c = dbHelper.getUser(user_res);
                 if (c.moveToFirst()) {
-                    Integer aux = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
-                    aux += Integer.valueOf((String) intents.getText());
-                    dbHelper.update_points(user_res, aux);
+                    punts = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
+                    //punts += Integer.valueOf((String) intents.getText());
+                    dbHelper.update_points(user_res, punts);
                 }
             }
 
-            Toast.makeText(getActivity(), "Facilitats! Has completat el joc", 
-                    Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            alertDialogBuilder.setMessage("Has necessitat "+ punts + " intents");
 
+            alertDialogBuilder.setPositiveButton("Tornar a jugar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    resetButtons();
+                }
+            });
+
+            alertDialogBuilder.setNegativeButton("Rànking", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getApplicationContext(), Ranking.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
             intents.setText("0");
 
             // Fem reset al joc

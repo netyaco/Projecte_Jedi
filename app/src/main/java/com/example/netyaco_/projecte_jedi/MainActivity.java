@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
 
+    SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+    String user_res = pref.getString("user", null);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt4.setOnClickListener(this);
         bt5.setOnClickListener(this);
         bt5.setOnClickListener(this);
+        bt6.setOnClickListener(this);
     }
 
     private void setUpViews() {
@@ -198,6 +202,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.bt_proves:
+                //SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+                /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setMessage("Segur que vols reiniciar totes les dades");
+                alertDialogBuilder.setPositiveButton("¡¡¡Fuego!!!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+                        //String user_res = pref.getString("user", null);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("user", null);
+                        editor.commit();
+                        DbHelper dbHelper = new DbHelper(getApplicationContext());
+                        dbHelper.resetAll();
+                        Toast.makeText(getApplicationContext(),
+                                "Reset all. No hi ha volta enrere", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton("M'ho he pensat millor", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "Ben pensat", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();*/
+
                 break;
             default:
                 break;

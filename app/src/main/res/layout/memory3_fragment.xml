@@ -6,7 +6,8 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Memory3$PlaceholderFragment">
+    tools:context=".Memory3$PlaceholderFragment"
+    android:paddingTop="20dp">
 
     <LinearLayout
         android:orientation="horizontal"

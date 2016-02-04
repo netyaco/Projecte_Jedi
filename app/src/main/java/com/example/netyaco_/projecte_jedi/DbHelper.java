@@ -128,6 +128,18 @@ public class DbHelper extends SQLiteOpenHelper {
         db.update(USER_TABLE, values, CN_USER + "=?", new String[]{name});
     }
 
+    public void reset_points() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CN_POINTS, 0);
+        db.update(USER_TABLE, values, null, null);
+    }
+
+    public void resetAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(USER_TABLE, null, null);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(USER_TABLE_CREATE);

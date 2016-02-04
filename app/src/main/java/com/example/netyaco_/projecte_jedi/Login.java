@@ -122,7 +122,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             Toast.LENGTH_LONG).show();
 
                     Bundle bundle = new Bundle();
-                    bundle.putString(dbHelper.USER_TABLE, etUser.getText().toString());
+                    bundle.putString(dbHelper.CN_USER, etUser.getText().toString());
                     bundle.putInt(dbHelper.CN_POINTS,
                             c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
                     bundle.putString(dbHelper.CN_ADDRESS,

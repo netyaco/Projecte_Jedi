@@ -34,7 +34,7 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
 
         String user = bundle.getString("user");
         Integer punt = bundle.getInt("puntuacio");
-        String direccio = bundle.getString("direccio");
+        String direccio = bundle.getString("address");
 
         tv_user.setText(user.toString());
         tv_punt.setText(punt.toString());

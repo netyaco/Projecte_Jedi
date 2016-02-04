@@ -36,7 +36,8 @@
         <activity android:name=".Player" />
         <activity android:name=".Registre" />
         <activity android:name=".Memory2" />
-        <activity android:name=".Memory3"></activity>
+        <activity android:name=".Memory3"
+            android:label="Memory"></activity>
     </application>
 
 </manifest>
