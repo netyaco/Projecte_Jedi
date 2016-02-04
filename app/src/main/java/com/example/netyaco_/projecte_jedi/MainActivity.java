@@ -151,11 +151,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()) {
             case R.id.bt_calc:
-                intent = new Intent(getApplicationContext(), Calculadora.class);
-                startActivity(intent);
+                //intent = new Intent(getApplicationContext(), Calculadora.class);
+                //startActivity(intent);
                 break;
             case R.id.bt_memory:
-                if (user_res == null) {
+                /*if (user_res == null) {
                     Toast.makeText(getApplicationContext(), "Cap usuari registrat",
                             Toast.LENGTH_LONG).show();
                 }
@@ -168,18 +168,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.LENGTH_LONG).show();
                 }
                 intent = new Intent(getApplicationContext(), Memory3.class);
-                startActivity(intent);
+                startActivity(intent);*/
                 break;
             case R.id.bt_ranking:
-                intent = new Intent(getApplicationContext(), Ranking.class);
-                startActivity(intent);
+                //intent = new Intent(getApplicationContext(), Ranking.class);
+                //startActivity(intent);
                 break;
             case R.id.bt_player:
-                intent = new Intent(getApplicationContext(), Player.class);
-                startActivity(intent);
+                //intent = new Intent(getApplicationContext(), Player.class);
+                //startActivity(intent);
                 break;
             case R.id.bt_perfil:
-                if (user_res == null) {
+                /*if (user_res == null) {
                     intent = new Intent(getApplicationContext(), Login.class);
                     startActivity(intent);
                 } else {
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     intent = new Intent(getApplicationContext(), Perfil_usuari.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }
+                }*/
                 break;
             case R.id.bt_proves:
                 //SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
