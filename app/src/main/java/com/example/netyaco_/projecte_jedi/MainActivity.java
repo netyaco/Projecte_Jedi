@@ -29,13 +29,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
 
-    SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
-    String user_res = pref.getString("user", null);
+    SharedPreferences pref;
+    String user_res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        user_res = pref.getString("user", null);
 
         setUpViews();
 
@@ -151,11 +154,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()) {
             case R.id.bt_calc:
-                //intent = new Intent(getApplicationContext(), Calculadora.class);
-                //startActivity(intent);
+                intent = new Intent(getApplicationContext(), Calculadora.class);
+                startActivity(intent);
                 break;
             case R.id.bt_memory:
-                /*if (user_res == null) {
+                if (user_res == null) {
                     Toast.makeText(getApplicationContext(), "Cap usuari registrat",
                             Toast.LENGTH_LONG).show();
                 }
@@ -168,18 +171,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.LENGTH_LONG).show();
                 }
                 intent = new Intent(getApplicationContext(), Memory3.class);
-                startActivity(intent);*/
+                startActivity(intent);
                 break;
             case R.id.bt_ranking:
-                //intent = new Intent(getApplicationContext(), Ranking.class);
-                //startActivity(intent);
+                intent = new Intent(getApplicationContext(), Ranking.class);
+                startActivity(intent);
                 break;
             case R.id.bt_player:
-                //intent = new Intent(getApplicationContext(), Player.class);
-                //startActivity(intent);
+                intent = new Intent(getApplicationContext(), Player.class);
+                startActivity(intent);
                 break;
             case R.id.bt_perfil:
-                /*if (user_res == null) {
+                if (user_res == null) {
                     intent = new Intent(getApplicationContext(), Login.class);
                     startActivity(intent);
                 } else {
@@ -199,11 +202,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     intent = new Intent(getApplicationContext(), Perfil_usuari.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }*/
+                }
                 break;
             case R.id.bt_proves:
                 //SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
-                /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 alertDialogBuilder.setMessage("Segur que vols reiniciar totes les dades");
                 alertDialogBuilder.setPositiveButton("¡¡¡Fuego!!!", new DialogInterface.OnClickListener() {
                     @Override
@@ -228,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
 
                 AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();*/
+                alertDialog.show();
 
                 break;
             default:

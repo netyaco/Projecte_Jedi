@@ -5,30 +5,41 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Registre extends AppCompatActivity implements View.OnClickListener{
 
-    EditText et_direccio;
-    Button bt_ok;
-    String user;
+    Button bt_foto, bt_registre;
+    String user, image_string;
+    ImageView iv_foto;
+    Uri image;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registre);
 
-        et_direccio = (EditText) findViewById(R.id.et_direccio);
-        bt_ok = (Button) findViewById(R.id.bt_registre_ok);
+        iv_foto = (ImageView) findViewById(R.id.iv_foto);
+        bt_foto = (Button) findViewById(R.id.bt_select_foto);
+        bt_registre = (Button) findViewById(R.id.bt_completar_registre);
 
-        bt_ok.setOnClickListener(this);
+        bt_foto.setOnClickListener(this);
+        bt_registre.setOnClickListener(this);
 
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
 
         user = bundle.getString("user");
         //Integer punt = bundle.getInt("puntuacio");
@@ -36,26 +47,53 @@ public class Registre extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Intent intent;
+        Intent intent = new Intent(this, Perfil_usuari.class);
         switch (v.getId()) {
-            case R.id.bt_registre_ok:
-                DbHelper dbHelper = new DbHelper(this);
-                dbHelper.update_address(user, et_direccio.getText().toString());
-                Cursor c = dbHelper.getUser(user);
-                c.moveToFirst();
-                Bundle bundle = new Bundle();
-                bundle.putString("user", user);
-                bundle.putInt("points",
-                        c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
-                bundle.putString("direccio",
-                        c.getString(c.getColumnIndex(dbHelper.CN_ADDRESS)));
-                intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+            case R.id.bt_select_foto:
+                Intent pickAnImage = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickAnImage.setType("image/*");
+
+                image = pickAnImage.getData();
+                //image_string = image.toString();
+                startActivityForResult(pickAnImage, 2);
+                break;
+            case R.id.bt_completar_registre:
+                //ArrayList<Uri> uri = new ArrayList<>();
+                //uri.add(image);
+                //bundle.putParcelableArrayList("uri", uri);
+                //bundle.putParcelable("uri", image);
+                //bundle.putString("uri",image_string);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
+                //Toast.makeText(this, image.toString(), Toast.LENGTH_LONG).show();
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Como en este caso los 3 intents hacen lo mismo, si el estado es correcto recogemos el resultado
+        //Aún así comprobamos los request code. Hay que tener total control de lo que hace nuestra app.
+        if(resultCode == RESULT_OK){
+            if(requestCode >= 1 && requestCode <= 3){
+                data.getData();
+                Uri selectedImage = data.getData();
+                Log.v("PICK", "Selected image uri" + selectedImage);
+                try {
+                    iv_foto.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }else{
+            Log.v("Result","Something happened");
         }
     }
 }

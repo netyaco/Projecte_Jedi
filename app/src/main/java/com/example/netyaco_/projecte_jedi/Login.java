@@ -1,7 +1,9 @@
 package com.example.netyaco_.projecte_jedi;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -75,21 +77,47 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
             Toast.makeText(getApplicationContext(), "Usuari afegit correctament... o no",
                     Toast.LENGTH_LONG).show();
-            Bundle bundle = new Bundle();
+            final Bundle bundle = new Bundle();
             bundle.putString("user", etUser.getText().toString());
             bundle.putInt("puntuacio", 0);
-            bundle.putString("direccio", "---");
+            //bundle.putString("direccio", "---");
 
             SharedPreferences.Editor editor = pref.edit();
 
             editor.putString("user", etUser.getText().toString());
             editor.commit();
-            Intent intent = new Intent(getApplicationContext(), Registre.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            etUser.setText("");
-            etPass.setText("");
-            finish();
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage("Vols afegir una imatge al teu perfil?");
+            alertDialogBuilder.setPositiveButton("Per què no?", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    Intent intent = new Intent(getApplicationContext(), Registre.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            alertDialogBuilder.setNegativeButton("Ho faré després", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+            //Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
+            //intent.putExtras(bundle);
+            //startActivity(intent);
+            //etUser.setText("");
+            //etPass.setText("");
+
         }
     }
 

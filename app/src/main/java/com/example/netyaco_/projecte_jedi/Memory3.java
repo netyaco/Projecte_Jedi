@@ -199,7 +199,7 @@ public class Memory3 extends AppCompatActivity {
             b.setBackgroundResource(images[assignarIndexImatges[indexClicked]]);
 
             if(darrerIndexClicat == -1){
-                darrerIndexClicat = indexClicked; //Prinera imatge clicada
+                darrerIndexClicat = indexClicked; //Primera imatge clicada
             } else if(darrerIndexClicat != indexClicked){
                 if(trobat(darrerIndexClicat, indexClicked)){
                     imatgesRevelades[darrerIndexClicat] = true;
@@ -249,8 +249,8 @@ public class Memory3 extends AppCompatActivity {
             if (user_res != null) {
                 Cursor c = dbHelper.getUser(user_res);
                 if (c.moveToFirst()) {
-                    punts = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
-                    //punts += Integer.valueOf((String) intents.getText());
+                    //punts = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
+                    punts = Integer.valueOf((String) intents.getText());
                     dbHelper.update_points(user_res, punts);
                 }
             }

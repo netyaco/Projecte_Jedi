@@ -6,23 +6,38 @@
     android:orientation="vertical"
     tools:context="com.example.netyaco_.projecte_jedi.Registre">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Direcció:"
-        android:id="@+id/textView8" />
-
-    <EditText
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/et_direccio"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Completar registre"
-        android:id="@+id/bt_registre_ok"
-        android:layout_gravity="center_horizontal" />
+        <ImageView
+            android:layout_width="168dp"
+            android:layout_height="201dp"
+            android:id="@+id/iv_foto"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/icon_user" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completar registre"
+            android:id="@+id/bt_select_foto"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/bt_completar_registre"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="200dp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
