@@ -37,6 +37,7 @@ public class Media_player extends AppCompatActivity {
     private SeekBar seekbar;
     private TextView tx1,tx2,tx3;
     private boolean play = false;
+    private boolean stop = false;
 
     public static int oneTimeOnly = 0;
 
@@ -64,32 +65,15 @@ public class Media_player extends AppCompatActivity {
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Playing sound",Toast.LENGTH_SHORT).show();
-                mediaPlayer.start();
 
-                finalTime = mediaPlayer.getDuration();
-                startTime = mediaPlayer.getCurrentPosition();
-
-                if (oneTimeOnly == 0) {
-                    seekbar.setMax((int) finalTime);
-                    oneTimeOnly = 1;
+                if (mediaPlayer != null) {
+                    Toast.makeText(getApplicationContext(), "Stoping sound",Toast.LENGTH_SHORT).show();
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                    stop = true;
+                    return;
                 }
-                tx2.setText(String.format("%d min, %d sec",
-                                TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
-                                TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
-                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime)))
-                );
-
-                tx1.setText(String.format("%d min, %d sec",
-                                TimeUnit.MILLISECONDS.toMinutes((long) startTime),
-                                TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
-                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime)))
-                );
-
-                seekbar.setProgress((int)startTime);
-                myHandler.postDelayed(UpdateSongTime,100);
-                b2.setEnabled(true);
-                b3.setEnabled(false);
             }
         });
 
@@ -98,15 +82,19 @@ public class Media_player extends AppCompatActivity {
             public void onClick(View v) {
                 if (play) {
                     Toast.makeText(getApplicationContext(), "Pausing sound",Toast.LENGTH_SHORT).show();
-                    mediaPlayer.pause();
+                    if (mediaPlayer != null) mediaPlayer.pause();
                     b2.setText("Play");
                     play = false;
+                    return;
                     //b2.setEnabled(false);
                     //b3.setEnabled(true);
                 }
                 else {
                     play = true;
                     Toast.makeText(getApplicationContext(), "Playing sound",Toast.LENGTH_SHORT).show();
+                    if(mediaPlayer == null){
+                        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
+                    }
                     mediaPlayer.start();
                     b2.setText("Pause");
 
@@ -133,6 +121,7 @@ public class Media_player extends AppCompatActivity {
                     myHandler.postDelayed(UpdateSongTime,100);
                     //b2.setEnabled(true);
                     //b3.setEnabled(false);
+                    return;
                 }
             }
         });
@@ -145,10 +134,10 @@ public class Media_player extends AppCompatActivity {
                 if((temp+forwardTime)<=finalTime){
                     startTime = startTime + forwardTime;
                     mediaPlayer.seekTo((int) startTime);
-                    Toast.makeText(getApplicationContext(),"You have Jumped forward 5 seconds",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"5 segons endavant",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Cannot jump forward 5 seconds",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"No es pot anar endavant",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -161,10 +150,10 @@ public class Media_player extends AppCompatActivity {
                 if((temp-backwardTime)>0){
                     startTime = startTime - backwardTime;
                     mediaPlayer.seekTo((int) startTime);
-                    Toast.makeText(getApplicationContext(),"You have Jumped backward 5 seconds",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"5 segons enrere",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Cannot jump backward 5 seconds",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"No es pot anar enrere",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -172,7 +161,7 @@ public class Media_player extends AppCompatActivity {
 
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {
-            startTime = mediaPlayer.getCurrentPosition();
+            if (mediaPlayer != null) startTime = mediaPlayer.getCurrentPosition();
             tx1.setText(String.format("%d min, %d sec",
 
                             TimeUnit.MILLISECONDS.toMinutes((long) startTime),
