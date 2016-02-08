@@ -93,7 +93,7 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
         Cursor c = dbHelper.getUser(user);
         if (c.moveToFirst()) {
             String s = c.getString(c.getColumnIndex(dbHelper.CN_IMAGE));
-            uri = Uri.parse(s);
+            if (s != null) uri = Uri.parse(s);
         }
         try {
             if (uri != null) iv_foto.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));

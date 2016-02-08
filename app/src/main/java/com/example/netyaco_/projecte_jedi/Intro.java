@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Settings extends AppCompatActivity implements View.OnClickListener{
+public class Intro extends AppCompatActivity implements View.OnClickListener{
 
     Button bt, bt2;
     public SharedPreferences pref;
@@ -15,7 +15,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_intro);
 
         pref = getSharedPreferences("pref", MODE_PRIVATE);
 
@@ -33,7 +33,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener{
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("first", "nope");
                 editor.commit();
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
                 finish();
                 break;
