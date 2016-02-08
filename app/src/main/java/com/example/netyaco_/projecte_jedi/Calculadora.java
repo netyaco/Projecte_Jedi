@@ -105,6 +105,12 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 //finish();
                 //break;
                 return true;
+            case R.id.internet:
+                String url = "http://www.realdroid.es";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

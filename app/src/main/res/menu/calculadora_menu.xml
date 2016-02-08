@@ -5,19 +5,16 @@
     <item
         android:id="@+id/menu_call"
         android:title="Settings"
+        android:icon="@drawable/ic_phone_black_36dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/internet"
+        android:title="Internet"
+        android:icon="@drawable/ic_google_chrome_black_36dp"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_submenu"
-        android:title="Submenu">
+        android:title="Submenu"/>
 
-        <menu>
-            <item
-                android:id="@+id/submenu1"
-                android:title="Submenu1" />
-            <item
-                android:id="@+id/submenu2"
-                android:title="Submenu2" />
-        </menu>
-    </item>
 
 </menu>
