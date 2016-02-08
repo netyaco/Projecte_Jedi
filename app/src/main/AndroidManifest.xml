@@ -26,22 +26,19 @@
             android:label="Calculadora" />
         <activity android:name=".Settings" />
         <activity android:name=".Login" />
-        <activity android:name=".Fragment_container" />
         <activity
             android:name=".Perfil_usuari"
             android:label="Login" />
         <activity
             android:name=".Ranking"
             android:label="Ranking" />
-        <activity
-            android:name=".Memory"
-            android:label="Memory" />
         <activity android:name=".Modificar_dades" />
         <activity android:name=".Player" />
         <activity android:name=".Registre" />
-        <activity android:name=".Memory2" />
-        <activity android:name=".Memory3"
-            android:label="Memory"></activity>
+        <activity
+            android:name=".Memory3"
+            android:label="Memory" />
+        <activity android:name=".Media_player"></activity>
     </application>
 
 </manifest>

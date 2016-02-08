@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toolbar toolbar;
 
     SharedPreferences pref;
-    String user_res;
+    String user_res, first_init;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
         user_res = pref.getString("user", null);
+        first_init = pref.getString("first", null);
+
+        if (first_init == null) {
+            Intent intent = new Intent(getApplicationContext(), Settings.class);
+            startActivity(intent);
+            finish();
+        }
+
 
         setUpViews();
 
@@ -178,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.bt_player:
-                intent = new Intent(getApplicationContext(), Player.class);
+                intent = new Intent(getApplicationContext(), Media_player.class);
                 startActivity(intent);
                 break;
             case R.id.bt_perfil:
@@ -193,8 +201,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     bundle.putString(dbHelper.CN_USER, user_res);
                     bundle.putInt(dbHelper.CN_POINTS,
                             c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
-                    bundle.putString(dbHelper.CN_ADDRESS,
-                            c.getString(c.getColumnIndex(dbHelper.CN_ADDRESS)));
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString("user", user_res);
                     editor.commit();
@@ -207,7 +213,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_proves:
                 //SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setMessage("Segur que vols reiniciar totes les dades");
+                alertDialogBuilder.setTitle("ATENCIÓ!!!!!! ");
+                alertDialogBuilder.setMessage("Segur que vols reiniciar totes les dades???");
                 alertDialogBuilder.setPositiveButton("¡¡¡Fuego!!!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
@@ -215,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //String user_res = pref.getString("user", null);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("user", null);
+                        editor.putString("first", null);
                         editor.commit();
                         DbHelper dbHelper = new DbHelper(getApplicationContext());
                         dbHelper.resetAll();

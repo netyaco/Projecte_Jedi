@@ -6,12 +6,10 @@ package com.example.netyaco_.projecte_jedi;
 public class User {
 
     private String name;
-    private String pass;
     private Integer points;
 
-    User(String name, String pass, Integer points) {
+    User(String name, Integer points) {
         this.name = name;
-        this.pass = pass;
         this.points = points;
     }
 
@@ -23,9 +21,6 @@ public class User {
         return name;
     }
 
-    public String getPass() {
-        return pass;
-    }
 
     public Integer getPoints() {
         return points;
@@ -35,8 +30,5 @@ public class User {
         this.name = name;
     }
 
-    public void setPass (String pass) {
-        this.pass = pass;
-    }
 
 }

@@ -63,16 +63,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             inputLayoutPassword.setError("Has d'introduïr una contrassenya");
         }
         else {
-            ContentValues values = new ContentValues();
-            values.put("user", String.valueOf(etUser.getText()));
-            values.put("pass", String.valueOf(etPass.getText()));
-            values.put("points", 0);
             Cursor c = dbHelper.getUser(String.valueOf(etUser.getText()));
             if (c.moveToFirst()) {
                 Toast.makeText(getApplicationContext(), "L'usuari ja exixteix",
                         Toast.LENGTH_LONG).show();
                 return;
             }
+            ContentValues values = new ContentValues();
+            values.put("user", String.valueOf(etUser.getText()));
+            values.put("pass", String.valueOf(etPass.getText()));
+            values.put("points", 0);
             dbHelper.newUser(values, dbHelper.USER_TABLE);
 
             Toast.makeText(getApplicationContext(), "Usuari afegit correctament... o no",
@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             final Bundle bundle = new Bundle();
             bundle.putString("user", etUser.getText().toString());
             bundle.putInt("puntuacio", 0);
-            //bundle.putString("direccio", "---");
+            bundle.putString("pass", etPass.getText().toString());
 
             SharedPreferences.Editor editor = pref.edit();
 
@@ -153,8 +153,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     bundle.putString(dbHelper.CN_USER, etUser.getText().toString());
                     bundle.putInt(dbHelper.CN_POINTS,
                             c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
-                    bundle.putString(dbHelper.CN_ADDRESS,
-                            c.getString(c.getColumnIndex(dbHelper.CN_ADDRESS)));
+                    bundle.putString("pass", c.getString(c.getColumnIndex(dbHelper.CN_PASS)));
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString("user", etUser.getText().toString());
                     editor.commit();

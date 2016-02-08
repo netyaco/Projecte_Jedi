@@ -25,7 +25,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     String operacio;
     Double val1, val2, total, ans;
     Button bt0, bt1, bt2, bt3, bt4, bt5, bt6, bt7, bt8, bt9, bt10, bt11, bt12, bt13, bt14, bt15;
-    Button bt16, bt17, bt18;
+    Button bt16, bt17, bt18, bt19;
     boolean first = true;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -62,6 +62,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         bt16 = (Button) findViewById(R.id.bt_ac);
         bt17 = (Button) findViewById(R.id.bt_del);
         bt18 = (Button) findViewById(R.id.bt_c);
+        bt19 = (Button) findViewById(R.id.bt_ans);
 
         bt0.setOnClickListener(this);
         bt1.setOnClickListener(this);
@@ -82,6 +83,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         bt16.setOnClickListener(this);
         bt17.setOnClickListener(this);
         bt18.setOnClickListener(this);
+        bt19.setOnClickListener(this);
 
         //val1 = val2 = total = 0.0;
     }
@@ -111,6 +113,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
 
 
     private void igual() {
+        //operacio = "";
         if (result.getText() != "") {
             if (val1 == null) {
                 total = Double.parseDouble((String) result.getText());
@@ -118,19 +121,22 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 result.setHint(total.toString());
                 val1 = total;
                 ans = total;
-            }
-            else {
+            } else {
                 val2 = Double.parseDouble((String) result.getText());
                 if (operacio.equals("+")) {
                     total = val1 + val2;
-                } else if (operacio.equals("-")) {
+                }
+                else if (operacio.equals("-")) {
                     total = val1 - val2;
-                } else if (operacio.equals("x")) {
+                }
+                else if (operacio.equals("x")) {
                     total = val1 * val2;
-                } else if (operacio.equals("/")) {
+                }
+                else if (operacio.equals("/")) {
                     if (val2 == 0) {
-                        reset();
                         Toast.makeText(getApplicationContext(), "Ni lo sueñes", Toast.LENGTH_LONG).show();
+                        //reset();
+                        return;
                     } else total = val1 / val2;
                 }
                 //result.setText(total.toString());
@@ -141,13 +147,14 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 //else first = false;
                 val1 = total;
                 ans = total;
+                operacio = "";
                 //first = true;
             }
         }
     }
 
     private void reset() {
-        val1 = val2 = total = null;
+        val1 = val2 = total = ans = null;
         operacio = "";
         result.setText("");
         result.setHint("0");
@@ -276,6 +283,18 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
             case R.id.bt_ac:
                 reset();
                 break;
+            case R.id.bt_ans:
+                if (first) {
+                    val1 = ans;
+                    result.setText("");
+                    result.setHint(val1.toString());
+                    first = false;
+                } else {
+                    result.setText(ans.toString());
+                    igual();
+                    //operacio = "-";
+                }
+                break;
             default:
                 break;
         }
@@ -357,25 +376,29 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         s = result.getText().toString();
-        /*outState.putString("result", s);
+        outState.putString("result", s);
         outState.putBoolean("first", first);
-        outState.putDouble("val1", val1);
-        outState.putDouble("val2", val2);
-        outState.putDouble("total", total);
-        outState.putDouble("ans", ans);*/
+        if(val1 != null)
+            outState.putDouble("val1", val1);
+        if(val2 != null)
+            outState.putDouble("val2", val2);
+        if(total != null)
+            outState.putDouble("total", total);
+        if(ans != null)
+            outState.putDouble("ans", ans);
     }
 
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             result.setText(savedInstanceState.getString("result"));
-            /*first = savedInstanceState.getBoolean("first");
+            first = savedInstanceState.getBoolean("first");
             val1 = savedInstanceState.getDouble("val1");
             val2 = savedInstanceState.getDouble("val2");
             total = savedInstanceState.getDouble("total");
-            ans = savedInstanceState.getDouble("ans");*/
+            ans = savedInstanceState.getDouble("ans");
         }
     }
 }

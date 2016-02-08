@@ -26,6 +26,7 @@ public class Registre extends AppCompatActivity implements View.OnClickListener{
     ImageView iv_foto;
     Uri image;
     Bundle bundle;
+    DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class Registre extends AppCompatActivity implements View.OnClickListener{
         bt_foto.setOnClickListener(this);
         bt_registre.setOnClickListener(this);
 
+        dbHelper = new DbHelper(this);
         bundle = getIntent().getExtras();
 
         user = bundle.getString("user");
@@ -55,16 +57,16 @@ public class Registre extends AppCompatActivity implements View.OnClickListener{
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickAnImage.setType("image/*");
 
-                image = pickAnImage.getData();
                 //image_string = image.toString();
                 startActivityForResult(pickAnImage, 2);
                 break;
             case R.id.bt_completar_registre:
+                dbHelper.update_image(user, image.toString());
                 //ArrayList<Uri> uri = new ArrayList<>();
                 //uri.add(image);
                 //bundle.putParcelableArrayList("uri", uri);
-                //bundle.putParcelable("uri", image);
-                //bundle.putString("uri",image_string);
+                bundle.putParcelable("uri", image);
+                //bundle.putString("uri",Uri.image);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
@@ -84,6 +86,7 @@ public class Registre extends AppCompatActivity implements View.OnClickListener{
             if(requestCode >= 1 && requestCode <= 3){
                 data.getData();
                 Uri selectedImage = data.getData();
+                image = selectedImage;
                 Log.v("PICK", "Selected image uri" + selectedImage);
                 try {
                     iv_foto.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage));

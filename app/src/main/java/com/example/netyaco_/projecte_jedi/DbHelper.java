@@ -24,14 +24,16 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String CN_PASS = "pass";
     public static final String CN_POINTS = "points";
     //public static final String CN_RANK = "rank";
-    public static final String CN_ADDRESS = "address";
+    public static final String CN_NOTIFY = "notify";
+    public static final String CN_IMAGE = "image";
 
     //sentencia global de cracion de la base de datos
     public static final String USER_TABLE_CREATE = "CREATE TABLE " + USER_TABLE + "( " +
             CN_USER + " TEXT PRIMARY KEY UNIQUE, " +
             CN_PASS + " TEXT, " +
             CN_POINTS + " INTEGER, " +
-            CN_ADDRESS + " TEXT);";
+            CN_NOTIFY + " TEXT, " +
+            CN_IMAGE + " TEXT);";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,7 +49,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public Cursor getUser (String user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "pass", "points", "address"};
+        String[] columns = {"user", "pass", "points", "notify", "image"};
         String[] where = {user};
         Cursor c = db.query(
                 USER_TABLE,  // The table to query
@@ -64,7 +66,7 @@ public class DbHelper extends SQLiteOpenHelper {
     //obtener una lista de coches
     public Cursor getAllUsers() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "pass", "points", "address"};
+        String[] columns = {"user", "pass", "points", "notify", "image"};
         Cursor c = db.query(
                 USER_TABLE,          // The table to query
                 columns,            // The columns to return
@@ -79,7 +81,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public Cursor getAllUsersDesc() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "pass", "points", "address"};
+        String[] columns = {"user", "pass", "points", "notify", "image"};
         Cursor c = db.query(
                 USER_TABLE,          // The table to query
                 columns,            // The columns to return
@@ -94,7 +96,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public Cursor getAllUsersName() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = {"user", "pass", "points", "address"};
+        String[] columns = {"user", "pass", "points", "notify", "image"};
         Cursor c = db.query(
                 USER_TABLE,          // The table to query
                 columns,            // The columns to return
@@ -114,18 +116,25 @@ public class DbHelper extends SQLiteOpenHelper {
         db.update(USER_TABLE, values, CN_USER + "=?", new String[]{user});
     }
 
-    public void update_pass() {
+    public void update_pass(String user, String pass) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put(Key, Valor);
-        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{});
+        values.put(CN_PASS, pass);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{user});
     }
 
-    public void update_address(String name, String addres) {
+    public void update_notify(String user, String notify) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(CN_ADDRESS, addres);
-        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{name});
+        values.put(CN_NOTIFY, notify);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{user});
+    }
+
+    public void update_image(String user, String image) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CN_IMAGE, image);
+        db.update(USER_TABLE, values, CN_USER + "=?", new String[]{user});
     }
 
     public void reset_points() {
@@ -134,6 +143,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(CN_POINTS, 0);
         db.update(USER_TABLE, values, null, null);
     }
+
 
     public void resetAll() {
         SQLiteDatabase db = this.getWritableDatabase();

@@ -53,6 +53,7 @@ public class Player extends AppCompatActivity implements View.OnClickListener{
                 if(mediaPlayer != null) mediaPlayer.pause();
                 break;
             case R.id.bt_stop:
+                if (mediaPlayer == null) break;
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 mediaPlayer = null;

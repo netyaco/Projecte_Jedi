@@ -2,4 +2,19 @@
     <string name="app_name">Curs Jedi</string>
     <string name="openDrawer">Open Drawer</string>
     <string name="closeDrawer">Close Drawer</string>
+    <string name="intro">Benvingut a aquesta meravellosa aplicació.\n
+        \n
+        Ha estat creada amb tota la il·lusió del mon i sense cap ànim de lucre, i per això és una
+    patata, perquè no hi ha pasta pel mig (encara així dubto que sigués millor degut a
+    la poca traça que te el seu creador alhora de disenyar interficies. Per això ha repetit IDI).\n
+        \n
+        L,utilització d,aquesta App comporta algun risc, com despreniment de retina,
+        atacs epilèptics o fartament de riure. És el millor que hem pogut fer en aquest
+        poc temps, espero que no es tingui molt en compte.\n
+        \n
+    L,empresa no es fa responsable dels possibles mals ocasionats.\n
+        \n
+    Atentament, YO.\n
+    \n
+    PD: Aquest text no té apòstrofs perquè no li agraden...</string>
 </resources>

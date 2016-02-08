@@ -9,7 +9,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.53">
 
         <ImageView
             android:layout_width="168dp"
@@ -21,23 +22,24 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Completar registre"
+            android:text="Seleccionar foto"
             android:id="@+id/bt_select_foto"
             android:layout_gravity="center_horizontal" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </LinearLayout>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/bt_completar_registre"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="200dp" />
-        </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finalitzar"
+            android:id="@+id/bt_completar_registre"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 </LinearLayout>

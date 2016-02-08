@@ -4,17 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.netyaco_.projecte_jedi.Perfil_usuari">
+    tools:context="com.example.netyaco_.projecte_jedi.Perfil_usuari"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#6f6f6f">
+        android:layout_height="150dp"
+        android:background="#2162b9"
+        android:layout_weight="0.14">
 
         <ImageView
-            android:layout_width="105dp"
-            android:layout_height="105dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:maxWidth="150dp"
+            android:maxHeight="150dp"
             android:id="@+id/iv_perfil_foto"/>
         <!--android:src="@drawable/saw_icon"-->
 
@@ -23,6 +27,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:id="@+id/textView"
+                android:textSize="25dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/tv_user_perfil"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:textSize="20dp"
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Màxima untuació"
+                android:id="@+id/textView5"
+                android:textSize="25dp"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/tv_puntuacio_perfil"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:textSize="20dp"
+                android:paddingRight="10dp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -36,52 +81,65 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username:"
-            android:id="@+id/textView"
-            android:layout_marginTop="50dp"
-            android:textSize="25dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tv_user_perfil" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Puntuació:"
-            android:id="@+id/textView5"
-            android:layout_marginTop="50dp"
-            android:textSize="25dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tv_puntuacio_perfil" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Direcció:"
+            android:text="Ubicació:"
             android:id="@+id/textView6"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
+            android:textSize="25dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tv_direccio_perfil"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Darrera notificació:"
+            android:id="@+id/textView4"
             android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            android:id="@+id/tv_direccio_perfil" />
+            android:id="@+id/tv_notificacio_perfil" />
 
-        <Button
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar Ubicació"
-            android:id="@+id/button"
-            android:layout_marginBottom="40dp"
-            android:layout_gravity="center_horizontal" />
+            android:text="Pass:"
+            android:id="@+id/tv_pass_titol"
+            android:textSize="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tv_pass_perfil"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_pass_perfil"
+            android:layout_weight="1"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,7 +153,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Modificar dades"
+            android:text="Modificar pass"
             android:id="@+id/bt_canvi"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1" />

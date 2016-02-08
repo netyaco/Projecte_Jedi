@@ -48,10 +48,10 @@ public class Ranking extends AppCompatActivity {
         if (c.moveToFirst()) {
             do {
                 String name = c.getString(c.getColumnIndex(dbHelper.CN_USER));
-                String pass = c.getString(c.getColumnIndex(dbHelper.CN_PASS));
+                //String pass = c.getString(c.getColumnIndex(dbHelper.CN_PASS));
                 Integer points = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
                 if (points != 0) {
-                    User user = new User(name, pass, points);
+                    User user = new User(name, points);
                     users.add(user);
                 }
             } while (c.moveToNext());
