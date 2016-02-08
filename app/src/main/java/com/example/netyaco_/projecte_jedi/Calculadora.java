@@ -1,10 +1,16 @@
 package com.example.netyaco_.projecte_jedi;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +36,9 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    public SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    private String notif;
 
 
     @Override
@@ -37,6 +46,9 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculadora);
 
+        pref = getSharedPreferences("pref", MODE_PRIVATE);
+        editor = pref.edit();
+        notif = pref.getString("notif", null);
         //setUpViews();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -111,6 +123,15 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
                 return true;
+            case R.id.toast:
+                editor.putString("notif", null);
+                Toast.makeText(this, "Notificacions de toast activades", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.estado:
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("notif", "estat");
+                Toast.makeText(this, "Notificacions d'estat activades", Toast.LENGTH_SHORT).show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -131,18 +152,22 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 val2 = Double.parseDouble((String) result.getText());
                 if (operacio.equals("+")) {
                     total = val1 + val2;
-                }
-                else if (operacio.equals("-")) {
+                } else if (operacio.equals("-")) {
                     total = val1 - val2;
-                }
-                else if (operacio.equals("x")) {
+                } else if (operacio.equals("x")) {
                     total = val1 * val2;
-                }
-                else if (operacio.equals("/")) {
+                } else if (operacio.equals("/")) {
                     if (val2 == 0) {
-                        Toast.makeText(getApplicationContext(), "Ni lo sueñes", Toast.LENGTH_LONG).show();
-                        //reset();
-                        return;
+                        notif = pref.getString("notif", null);
+                        if (notif == null) {
+                            Toast.makeText(getApplicationContext(), "Ni lo sueñes", Toast.LENGTH_LONG).show();
+                            //reset();
+                            return;
+                        }
+                        else {
+                            state_notif();
+                            return;
+                        }
                     } else total = val1 / val2;
                 }
                 //result.setText(total.toString());
@@ -312,13 +337,13 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         s = result.getText().toString();
         outState.putString("result", s);
         outState.putBoolean("first", first);
-        if(val1 != null)
+        if (val1 != null)
             outState.putDouble("val1", val1);
-        if(val2 != null)
+        if (val2 != null)
             outState.putDouble("val2", val2);
-        if(total != null)
+        if (total != null)
             outState.putDouble("total", total);
-        if(ans != null)
+        if (ans != null)
             outState.putDouble("ans", ans);
     }
 
@@ -334,5 +359,48 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
             total = savedInstanceState.getDouble("total");
             ans = savedInstanceState.getDouble("ans");
         }
+    }
+
+    private void state_notif() {
+        int mId = 1;
+        //Instanciamos Notification Manager
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        // Para la notificaciones, en lugar de crearlas directamente, lo hacemos mediante
+        // un Builder/contructor.
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getApplicationContext())
+                        .setSmallIcon(R.drawable.saw_icon)
+                        .setContentTitle("Notif")
+                        .setContentText("Texto de contenido");
+
+
+        // Creamos un intent explicito, para abrir la app desde nuestra notificaci�n
+        Intent resultIntent = new Intent(getApplicationContext(), Calculadora.class);
+
+        //El objeto stack builder contiene una pila artificial para la Acitivty empezada.
+        //De esta manera, aseguramos que al navegar hacia atr�s
+        //desde la Activity nos lleve a la home screen.
+
+        //Desde donde la creamos
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
+        // A�ade la pila para el Intent,pero no el intent en s�
+        stackBuilder.addParentStack(Calculadora.class);
+        // A�adimos el intent que empieza la activity que est� en el top de la pila
+        stackBuilder.addNextIntent(resultIntent);
+
+        //El pending intent ser� el que se ejecute cuando la notificaci�n sea pulsada
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        // mId nos permite actualizar las notificaciones en un futuro
+        // Notificamos
+        mNotificationManager.notify(mId, mBuilder.build());
     }
 }

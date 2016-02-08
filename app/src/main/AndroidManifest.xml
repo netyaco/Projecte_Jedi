@@ -38,7 +38,8 @@
         <activity
             android:name=".Memory3"
             android:label="Memory" />
-        <activity android:name=".Media_player"></activity>
+        <activity android:name=".Media_player" />
+        <activity android:name=".Info_calc"></activity>
     </application>
 
 </manifest>

@@ -4,17 +4,26 @@
 
     <item
         android:id="@+id/menu_call"
-        android:title="Settings"
         android:icon="@drawable/ic_phone_black_36dp"
+        android:title="Settings"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/internet"
-        android:title="Internet"
         android:icon="@drawable/ic_google_chrome_black_36dp"
+        android:title="Internet"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_submenu"
-        android:title="Submenu"/>
+        android:id="@+id/submenu"
+        android:title="Notificacions">
+        <menu>
+            <item
+                android:id="@+id/toast"
+                android:title="Tostades" />
+            <item
+                android:id="@+id/estado"
+                android:title="Estat" />
+        </menu>
+    </item>
 
 
 </menu>

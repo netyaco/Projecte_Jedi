@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toolbar toolbar;
 
     SharedPreferences pref;
-    String user_res, first_init;
+    String user_res, first_init, calc_init;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
         user_res = pref.getString("user", null);
         first_init = pref.getString("first", null);
+        calc_init = pref.getString("calc", null);
 
         if (first_init == null) {
             Intent intent = new Intent(getApplicationContext(), Intro.class);
@@ -160,20 +161,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (v.getId()) {
             case R.id.bt_calc:
-                intent = new Intent(getApplicationContext(), Calculadora.class);
-                startActivity(intent);
+                if (calc_init == null) {
+                    intent = new Intent(getApplicationContext(), Info_calc.class);
+                    startActivity(intent);
+                }
+                else {
+                    //Toast.makeText(this, "MERDAAAAA", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(getApplicationContext(), Calculadora.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.bt_memory:
                 if (user_res == null) {
                     Toast.makeText(getApplicationContext(), "Cap usuari registrat",
                             Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     DbHelper dbHelper = new DbHelper(this);
                     Cursor c = dbHelper.getUser(user_res);
                     c.moveToFirst();
                     String aux = c.getString(c.getColumnIndex(dbHelper.CN_USER));
-                    Toast.makeText(getApplicationContext(), "Sort, "+ aux,
+                    Toast.makeText(getApplicationContext(), "Sort, " + aux,
                             Toast.LENGTH_LONG).show();
                 }
                 intent = new Intent(getApplicationContext(), Memory3.class);
@@ -221,11 +228,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("user", null);
                         editor.putString("first", null);
+                        editor.putString("calc", null);
                         editor.commit();
                         DbHelper dbHelper = new DbHelper(getApplicationContext());
                         dbHelper.resetAll();
                         Toast.makeText(getApplicationContext(),
                                 "Reset all. No hi ha volta enrere", Toast.LENGTH_LONG).show();
+                        finish();
                     }
                 });
 

@@ -17,4 +17,16 @@
     Atentament, YO.\n
     \n
     PD: Aquest text no té apòstrofs perquè no li agraden...</string>
+    <string name="info_calc"> Normes d,us de la calculadora.\n
+        \n
+        - La funció ANS no acaba de funcionar del tot bé.\n
+        - Les notificacions d,estat no s,activen.\n
+        - Quan gires la pantalla, no es guarden tots els valors.\n
+        \n
+        \n
+        - Se suposa que ja no hauria de sortir més aquesta pantalla, però ho fa fins que surts
+        i tornes entrar a l,aplicació. En canvi, la pantalla inicial de "presentació" sí que
+        funciona correctatment. Problemas del primer mundo.
+
+    </string>
 </resources>
