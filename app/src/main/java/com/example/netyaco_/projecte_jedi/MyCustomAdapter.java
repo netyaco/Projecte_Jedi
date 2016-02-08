@@ -36,13 +36,16 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.Adapte
 
     @Override
     public void onBindViewHolder(MyCustomAdapter.AdapterViewHolder adapterViewHolder, int position) {
-        adapterViewHolder.user.setText(users.get(position).getName());
-        adapterViewHolder.points.setText("Puntuació: "+users.get(position).getPoints().toString());
+        if (users != null) {
+            adapterViewHolder.user.setText(users.get(position).getName());
+            adapterViewHolder.points.setText("Puntuació: "+users.get(position).getPoints().toString());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        if (users != null) return users.size();
+        return 0;
     }
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder {

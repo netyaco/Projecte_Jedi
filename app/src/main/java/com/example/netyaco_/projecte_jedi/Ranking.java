@@ -24,8 +24,6 @@ public class Ranking extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayout;
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private Toolbar toolbar;
     private MyCustomAdapter adapter;
     ArrayList<User> users = new ArrayList<>();
@@ -39,16 +37,12 @@ public class Ranking extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        //setUpViews();
-
         dbHelper = new DbHelper(this);
 
         Cursor c = dbHelper.getAllUsers();
         if (c.moveToFirst()) {
             do {
                 String name = c.getString(c.getColumnIndex(dbHelper.CN_USER));
-                //String pass = c.getString(c.getColumnIndex(dbHelper.CN_PASS));
                 Integer points = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
                 if (points != 0) {
                     User user = new User(name, points);
@@ -93,9 +87,9 @@ public class Ranking extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()){
             case  R.id.ranking_reset:
-                //dbHelper.reset_points();
-                //users = null;
-                //adapter.setDataSet(users);
+                dbHelper.reset_points();
+                users = null;
+                adapter.setDataSet(users);
                 return false;
             default:
                 return false;

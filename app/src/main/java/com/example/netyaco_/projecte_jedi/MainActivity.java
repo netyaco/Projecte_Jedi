@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //setUpViews();
-
         bt1 = (Button) findViewById(R.id.bt_calc);
         bt2 = (Button) findViewById(R.id.bt_perfil);
         bt3 = (Button) findViewById(R.id.bt_memory);
@@ -65,80 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt6.setOnClickListener(this);
     }
 
-    private void setUpViews() {
-        // Initializing Toolbar and setting it as the actionbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        //Initializing NavigationView
-        navigationView = (NavigationView) findViewById(R.id.navview);
-
-        //Initializing DrawerLayout
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout)
-        ;
-        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            // This method will trigger on item Click of navigation menu
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-
-                //Checking if the item is in checked state or not, if not make it in checked state
-                if (menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
-
-                //Closing drawer on item click
-                drawerLayout.closeDrawers();
-
-                //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()) {
-                    case R.id.profile:
-                        Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.memory:
-                        Toast.makeText(getApplicationContext(), "Memory Selected", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.ranking:
-                        Toast.makeText(getApplicationContext(), "Ranking Selected", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.player:
-                        Toast.makeText(getApplicationContext(), "Player Selected", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.calculator:
-                        Toast.makeText(getApplicationContext(), "Calculator Selected", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return true;
-            }
-        });
-
-        // Initializing Drawer Layout and ActionBarToggle
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
-                super.onDrawerClosed(drawerView);
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
-                super.onDrawerOpened(drawerView);
-            }
-        };
-
-        //Setting the actionbarToggle to drawer layout
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-
-        //calling sync state is necessay or else your hamburger icon wont show up
-        actionBarDrawerToggle.syncState();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mainactivity_menu, menu);
         return true;
-        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -151,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 return super.onOptionsItemSelected(item);
         }
-        //return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -166,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                 }
                 else {
-                    //Toast.makeText(this, "MERDAAAAA", Toast.LENGTH_SHORT).show();
                     intent = new Intent(getApplicationContext(), Calculadora.class);
                     startActivity(intent);
                 }
@@ -216,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.bt_proves:
-                //SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 alertDialogBuilder.setTitle("ATENCIÓ!!!!!! ");
                 alertDialogBuilder.setMessage("Segur que vols reiniciar totes les dades???");
@@ -224,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
-                        //String user_res = pref.getString("user", null);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("user", null);
                         editor.putString("first", null);
@@ -247,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-
                 break;
             default:
                 break;

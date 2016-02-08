@@ -34,8 +34,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     Button bt16, bt17, bt18, bt19;
     boolean first = true;
     private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     public SharedPreferences pref;
     SharedPreferences.Editor editor;
     private String notif;
@@ -49,7 +47,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         editor = pref.edit();
         notif = pref.getString("notif", null);
-        //setUpViews();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -97,14 +94,12 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         bt18.setOnClickListener(this);
         bt19.setOnClickListener(this);
 
-        //val1 = val2 = total = 0.0;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.calculadora_menu, menu);
         return true;
-        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -114,10 +109,10 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 String call = "tel:" + result.getText().toString();
                 Intent intent2 = new Intent(Intent.ACTION_DIAL, Uri.parse(call));
                 startActivity(intent2);
-                //finish();
-                //break;
                 return true;
             case R.id.internet:
+                Toast.makeText(this,"Gràcies per visitar el nostre bloc ;)",
+                        Toast.LENGTH_LONG).show();
                 String url = "http://www.realdroid.es";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
@@ -135,12 +130,10 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
             default:
                 return super.onOptionsItemSelected(item);
         }
-        //return super.onOptionsItemSelected(item);
     }
 
 
     private void igual() {
-        //operacio = "";
         if (result.getText() != "") {
             if (val1 == null) {
                 total = Double.parseDouble((String) result.getText());
@@ -161,7 +154,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                         notif = pref.getString("notif", null);
                         if (notif == null) {
                             Toast.makeText(getApplicationContext(), "Ni lo sueñes", Toast.LENGTH_LONG).show();
-                            //reset();
                             return;
                         }
                         else {
@@ -170,16 +162,11 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                         }
                     } else total = val1 / val2;
                 }
-                //result.setText(total.toString());
                 result.setText("");
                 result.setHint(total.toString());
-                //igual = true;
-                //if (!first) first = true;
-                //else first = false;
                 val1 = total;
                 ans = total;
                 operacio = "";
-                //first = true;
             }
         }
     }
@@ -237,7 +224,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 result.setText(s);
                 break;
             case R.id.bt_suma:
-                //operacio = "+";
                 if (first) {
                     operacio = "+";
                     if (result.getText() != "")
@@ -251,7 +237,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 }
                 break;
             case R.id.bt_resta:
-                //operacio = "-";
                 if (first) {
                     operacio = "-";
                     if (result.getText() != "")
@@ -265,7 +250,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 }
                 break;
             case R.id.bt_mult:
-                //operacio = "x";
                 if (first) {
                     operacio = "x";
                     if (result.getText() != "")
@@ -279,7 +263,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 }
                 break;
             case R.id.bt_div:
-                //operacio = "/";
                 if (first) {
                     operacio = "/";
                     if (result.getText() != "")
@@ -323,7 +306,6 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 } else {
                     result.setText(ans.toString());
                     igual();
-                    //operacio = "-";
                 }
                 break;
             default:

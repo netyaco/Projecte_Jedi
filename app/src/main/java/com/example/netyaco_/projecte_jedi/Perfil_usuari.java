@@ -44,8 +44,6 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
     Bundle bundle;
     DbHelper dbHelper;
 
-    public SharedPreferences pref;
-
     List<Address> l;
     LocationManager lm;
     LocationListener lis;
@@ -73,23 +71,17 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
 
         String user = "";
         Integer punt = 0;
-        String pass = "";
         Uri uri = null;
         bundle = getIntent().getExtras();
         if (bundle != null) {
             user = bundle.getString("user");
             punt = bundle.getInt("puntuacio");
-            pass = bundle.getString("pass");
-            //ArrayList<Parcelable> uris = bundle.getParcelableArrayList("uri");
-            //Uri uri = Uri.parse(bundle.getString("uri"));
-            //String direccio = bundle.getString("address");
             uri = bundle.getParcelable("uri");
         }
 
 
         tv_user.setText(user.toString());
         tv_punt.setText(punt.toString());
-        //tv_pass.setText(pass.toString());
         Cursor c = dbHelper.getUser(user);
         if (c.moveToFirst()) {
             String s = c.getString(c.getColumnIndex(dbHelper.CN_IMAGE));
@@ -100,7 +92,6 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //tv_direccio.setText(direccio.toString());
 
         l = null;
         lm = (LocationManager) this
@@ -159,20 +150,6 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
 
     }
 
-    /*@Override
-    protected void onPause() {
-        // TODO Auto-generated method stub
-        lm.removeGpsStatusListener((GpsStatus.Listener) lis);
-
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        // TODO Auto-generated method stub
-        super.onResume();
-    }*/
-
     @Override
     public void onClick(View v) {
         final Intent intent;
@@ -199,16 +176,11 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
                         dbHelper.update_pass(tv_user.getText().toString(),
                                 et_pass.getText().toString());
                     }
-                    //tv_pass.setText(et_pass.getText().toString());
                     et_pass.setVisibility(View.GONE);
                     tv_pass_titol.setVisibility(View.GONE);
                 }
-                //intent = new Intent(getApplicationContext(), Calculadora.class);
-                //startActivity(intent);
-                //finish();
                 break;
             case R.id.bt_logout:
-                //Toast.makeText(this, "Hola", Toast.LENGTH_LONG).show();
                 SharedPreferences pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("user", null);

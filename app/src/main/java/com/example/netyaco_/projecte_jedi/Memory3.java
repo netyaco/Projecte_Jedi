@@ -51,7 +51,6 @@ public class Memory3 extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.memory_menu, menu);
         return true;
-        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -59,6 +58,7 @@ public class Memory3 extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.reset_menu:
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle("ATENCIÓ!!!!!");
                 alertDialogBuilder.setMessage("Segur que vols reiniciar el joc?");
                 alertDialogBuilder.setPositiveButton("Dale", new DialogInterface.OnClickListener() {
                     @Override
@@ -72,26 +72,19 @@ public class Memory3 extends AppCompatActivity {
                 alertDialogBuilder.setNegativeButton("Ehm... Nop", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //finish();
                     }
                 });
 
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-                //break;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-        //return super.onOptionsItemSelected(item);
     }
 
     // Fragment del Memory
     public class MemoryGameFragment extends Fragment {
-
-        //private Toolbar toolbar;
-
-
 
         private TextView intents;
         private static final int NUM_BUTTONS = 16;
@@ -138,9 +131,6 @@ public class Memory3 extends AppCompatActivity {
             }
 
             intents = (TextView) rootView.findViewById(R.id.tv_intents);
-
-            //toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-            //setSupportActionBar(toolbar);
 
             pause = false;
             darrerIndexClicat = -1;
@@ -217,7 +207,6 @@ public class Memory3 extends AppCompatActivity {
                     punts++;
                     intents.setText(punts.toString());
 
-                    // Esperem... Hauria de ser amb Threads, però de moment no hi son
                     pause = true;
 
                     // Tornem a cridar a ocultarImatges
@@ -249,7 +238,6 @@ public class Memory3 extends AppCompatActivity {
             if (user_res != null) {
                 Cursor c = dbHelper.getUser(user_res);
                 if (c.moveToFirst()) {
-                    //punts = c.getInt(c.getColumnIndex(dbHelper.CN_POINTS));
                     punts = Integer.valueOf((String) intents.getText());
                     dbHelper.update_points(user_res, punts);
                 }

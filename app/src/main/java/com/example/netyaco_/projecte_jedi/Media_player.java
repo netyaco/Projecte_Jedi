@@ -37,7 +37,6 @@ public class Media_player extends AppCompatActivity {
     private SeekBar seekbar;
     private TextView tx1,tx2,tx3;
     private boolean play = false;
-    private boolean stop = false;
 
     public static int oneTimeOnly = 0;
 
@@ -71,7 +70,6 @@ public class Media_player extends AppCompatActivity {
                     mediaPlayer.stop();
                     mediaPlayer.release();
                     mediaPlayer = null;
-                    stop = true;
                     return;
                 }
             }
@@ -86,8 +84,6 @@ public class Media_player extends AppCompatActivity {
                     b2.setText("Play");
                     play = false;
                     return;
-                    //b2.setEnabled(false);
-                    //b3.setEnabled(true);
                 }
                 else {
                     play = true;
@@ -119,8 +115,6 @@ public class Media_player extends AppCompatActivity {
 
                     seekbar.setProgress((int)startTime);
                     myHandler.postDelayed(UpdateSongTime,100);
-                    //b2.setEnabled(true);
-                    //b3.setEnabled(false);
                     return;
                 }
             }

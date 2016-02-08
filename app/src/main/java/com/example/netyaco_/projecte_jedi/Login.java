@@ -22,8 +22,8 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity implements View.OnClickListener{
 
     private Button btLog, btNew;
-    private EditText etUser, etPass, etMail;
-    private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword;
+    private EditText etUser, etPass;
+    private TextInputLayout inputLayoutName, inputLayoutPassword;
     public SharedPreferences pref;
 
     DbHelper dbHelper;
@@ -39,9 +39,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         btNew = (Button) findViewById(R.id.bt_new_user);
         etUser = (EditText) findViewById(R.id.et_user);
         etPass = (EditText) findViewById(R.id.et_pass);
-        //etMail = (EditText) findViewById(R.id.et_email);
         inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
-        //inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
 
 
@@ -111,13 +109,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-
-            //Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
-            //intent.putExtras(bundle);
-            //startActivity(intent);
-            //etUser.setText("");
-            //etPass.setText("");
-
         }
     }
 
@@ -132,9 +123,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             inputLayoutPassword.setError("Has d'introduir una contrassenya");
         }
         else {
-            //ContentValues values = new ContentValues();
-            //values.put("user", String.valueOf(etUser.getText()));
-            //values.put("pass", String.valueOf(etPass.getText()));
             Cursor c = dbHelper.getUser(String.valueOf(etUser.getText()));
             if (!c.moveToFirst()) {
                 Toast.makeText(getApplicationContext(), "L'usuari no exixteix",
@@ -161,13 +149,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                    //etUser.setText("");
-                    //etPass.setText("");
-
-                    //Intent intent = new Intent(getApplicationContext(), Perfil_usuari.class);
-                    //startActivity(intent);
                     finish();
-                    //return;
                 }
             }
         }
@@ -178,7 +160,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.bt_new_user:
                 newUser(v);
-                //finish();
                 break;
             case R.id.bt_login:
                 login(v);

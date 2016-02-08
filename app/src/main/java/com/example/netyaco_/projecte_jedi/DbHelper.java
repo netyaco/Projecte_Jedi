@@ -23,7 +23,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String CN_USER = "user";
     public static final String CN_PASS = "pass";
     public static final String CN_POINTS = "points";
-    //public static final String CN_RANK = "rank";
     public static final String CN_NOTIFY = "notify";
     public static final String CN_IMAGE = "image";
 
