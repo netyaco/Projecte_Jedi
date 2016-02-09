@@ -61,6 +61,7 @@ public class Registre extends AppCompatActivity implements View.OnClickListener{
                 startActivityForResult(pickAnImage, 2);
                 break;
             case R.id.bt_completar_registre:
+                if (image != null) image_string = image.toString();
                 if (image_string == null) {
                     Toast.makeText(this, "Has de seleccionar una imatge", Toast.LENGTH_SHORT).show();
                     return;

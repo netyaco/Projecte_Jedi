@@ -87,7 +87,7 @@ public class Ranking extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()){
             case  R.id.ranking_reset:
-                dbHelper.reset_points();
+                //dbHelper.reset_points();
                 users = null;
                 adapter.setDataSet(users);
                 return false;
