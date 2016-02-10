@@ -44,6 +44,7 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
     Bundle bundle;
     DbHelper dbHelper;
     String uri_string;
+    Uri uri;
 
     List<Address> l;
     LocationManager lm;
@@ -73,7 +74,7 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
 
         String user = "";
         Integer punt = 0;
-        Uri uri = null;
+        uri = null;
         String notify = "";
         bundle = getIntent().getExtras();
         if (bundle != null) {
