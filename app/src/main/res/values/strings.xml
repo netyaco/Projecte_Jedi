@@ -29,8 +29,11 @@
         funciona correctatment. Problemas del primer mundo.
 
     </string>
-    <string name="info_app">Problemes: Al intentar accedir al perfil d,usuari després d,haver posat una foto, kaboom.
-        Sospito que per temes de permisos, perquè l,error que em dóna és aquest...\n
+    <string name="info_app">Problema gordo: La foto de perfil només la mostra en
+        el moment de seleccionar-la. Al intentar accedir al perfil d,usuari després
+        d,haver posat una foto, kaboom. Sospito que per temes de permisos, perquè l,error
+        que em dóna és aquest... Si voleu provar l,aplicació
+        NO poseu foto de perfil, repeteixo, NO poseu foto de perfil. Feu-ho després per provar\n
         També pot petar en casos puntuals o situacions molt extremes, ja que es posa nerviosa
         i no sap què fer.</string>
 </resources>

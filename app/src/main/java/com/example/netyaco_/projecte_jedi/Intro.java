@@ -33,7 +33,7 @@ public class Intro extends AppCompatActivity implements View.OnClickListener{
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("first", "nope");
                 editor.commit();
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(getApplicationContext(), Info_app.class);
                 startActivity(intent);
                 finish();
                 break;
