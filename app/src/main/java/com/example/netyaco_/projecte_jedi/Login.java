@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             Cursor c = dbHelper.getUser(String.valueOf(etUser.getText()));
             if (c.moveToFirst()) {
                 Toast.makeText(getApplicationContext(), "L'usuari ja exixteix",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
             ContentValues values = new ContentValues();
@@ -74,7 +74,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             dbHelper.newUser(values, dbHelper.USER_TABLE);
 
             Toast.makeText(getApplicationContext(), "Usuari afegit correctament... o no",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
+            String user = pref.getString("user", null);
+            if (user != null) dbHelper.update_notify(user,"Usuari afegit correctament... o no");
             final Bundle bundle = new Bundle();
             bundle.putString("user", etUser.getText().toString());
             bundle.putInt("puntuacio", 0);
@@ -126,16 +128,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             Cursor c = dbHelper.getUser(String.valueOf(etUser.getText()));
             if (!c.moveToFirst()) {
                 Toast.makeText(getApplicationContext(), "L'usuari no exixteix",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 if (!c.getString(c.getColumnIndex(dbHelper.CN_PASS)).equals(String.valueOf(etPass.getText()))) {
                     Toast.makeText(getApplicationContext(), "El pass no coincideix",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     Toast.makeText(getApplicationContext(), "Login realitzat correctament",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
+                    String user = pref.getString("user", null);
+                    if (user != null) dbHelper.update_notify(user,"Login realitzat correctament");
 
                     Bundle bundle = new Bundle();
                     bundle.putString(dbHelper.CN_USER, etUser.getText().toString());

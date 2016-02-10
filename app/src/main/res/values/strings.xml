@@ -20,8 +20,8 @@
     <string name="info_calc"> Normes d,us de la calculadora.\n
         \n
         - La funció ANS no acaba de funcionar del tot bé.\n
-        - Les notificacions d,estat no s,activen.\n
-        - Quan gires la pantalla, no es guarden tots els valors.\n
+        - Les notificacions d,estat no s,activen. El Sharedpreferences no me fa ni puta cas\n
+        - Quan gires la pantalla, no es guarden tots els valors. Alguns es queden pel camí\n
         \n
         \n
         - Se suposa que ja no hauria de sortir més aquesta pantalla, però ho fa fins que surts
@@ -29,4 +29,8 @@
         funciona correctatment. Problemas del primer mundo.
 
     </string>
+    <string name="info_app">Problemes: Al intentar accedir al perfil d,usuari després d,haver posat una foto, kaboom.
+        Sospito que per temes de permisos, perquè l,error que em dóna és aquest...\n
+        També pot petar en casos puntuals o situacions molt extremes, ja que es posa nerviosa
+        i no sap què fer.</string>
 </resources>

@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_settings:
-                Intent intent = new Intent(getApplicationContext(), Intro.class);
+                Intent intent = new Intent(getApplicationContext(), Info_app.class);
                 startActivity(intent);
                 return true;
             default:
@@ -100,14 +100,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bt_memory:
                 if (user_res == null) {
                     Toast.makeText(getApplicationContext(), "Cap usuari registrat",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     DbHelper dbHelper = new DbHelper(this);
                     Cursor c = dbHelper.getUser(user_res);
                     c.moveToFirst();
                     String aux = c.getString(c.getColumnIndex(dbHelper.CN_USER));
                     Toast.makeText(getApplicationContext(), "Sort, " + aux,
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
+                    String user = pref.getString("user", null);
+                    if (user != null) dbHelper.update_notify(user,"Sort");
                 }
                 intent = new Intent(getApplicationContext(), Memory3.class);
                 startActivity(intent);
@@ -132,6 +134,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     bundle.putString(dbHelper.CN_USER, user_res);
                     bundle.putInt(dbHelper.CN_POINTS,
                             c.getInt(c.getColumnIndex(dbHelper.CN_POINTS)));
+                    bundle.putString(dbHelper.CN_IMAGE,
+                            c.getString(c.getColumnIndex(dbHelper.CN_IMAGE)));
+                    bundle.putString(dbHelper.CN_NOTIFY,
+                            c.getString(c.getColumnIndex(dbHelper.CN_NOTIFY)));
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString("user", user_res);
                     editor.commit();
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         DbHelper dbHelper = new DbHelper(getApplicationContext());
                         dbHelper.resetAll();
                         Toast.makeText(getApplicationContext(),
-                                "Reset all. No hi ha volta enrere", Toast.LENGTH_LONG).show();
+                                "Reset all. No hi ha volta enrere", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -165,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 alertDialogBuilder.setNegativeButton("M'ho he pensat millor", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "Ben pensat", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Ben pensat", Toast.LENGTH_SHORT).show();
                     }
                 });
 

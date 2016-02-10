@@ -36,13 +36,14 @@ import java.util.List;
 
 public class Perfil_usuari extends AppCompatActivity implements View.OnClickListener {
 
-    TextView tv_user, tv_punt, tv_pass, tv_pass_titol;
+    TextView tv_user, tv_punt, tv_pass, tv_pass_titol, tv_notify;
     Button bt_canvi, bt_logout;
     ImageView iv_foto;
     EditText et_pass;
     Boolean canvi = false;
     Bundle bundle;
     DbHelper dbHelper;
+    String uri_string;
 
     List<Address> l;
     LocationManager lm;
@@ -64,6 +65,7 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
         iv_foto = (ImageView) findViewById(R.id.iv_perfil_foto);
         et_pass = (EditText) findViewById(R.id.et_pass_perfil);
         tv_pass_titol = (TextView) findViewById(R.id.tv_pass_titol);
+        tv_notify = (TextView) findViewById(R.id.tv_notificacio_perfil);
 
         bt_logout.setOnClickListener(this);
         bt_canvi.setOnClickListener(this);
@@ -72,23 +74,27 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
         String user = "";
         Integer punt = 0;
         Uri uri = null;
+        String notify = "";
         bundle = getIntent().getExtras();
         if (bundle != null) {
-            user = bundle.getString("user");
-            punt = bundle.getInt("puntuacio");
-            uri = bundle.getParcelable("uri");
+            user = bundle.getString(dbHelper.CN_USER);
+            punt = bundle.getInt(dbHelper.CN_POINTS);
+            if (bundle.getString(dbHelper.CN_IMAGE)!= null)
+                uri = Uri.parse(bundle.getString(dbHelper.CN_IMAGE));
+            notify = bundle.getString(dbHelper.CN_NOTIFY);
         }
 
 
         tv_user.setText(user.toString());
         tv_punt.setText(punt.toString());
+        if (notify != null) tv_notify.setText(notify.toString());
         Cursor c = dbHelper.getUser(user);
         if (c.moveToFirst()) {
-            String s = c.getString(c.getColumnIndex(dbHelper.CN_IMAGE));
-            if (s != null) uri = Uri.parse(s);
+            uri_string = c.getString(c.getColumnIndex(dbHelper.CN_IMAGE));
+            if (uri_string != null) uri = Uri.parse(uri_string);
         }
         try {
-            if (uri != null) iv_foto.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
+            if (uri_string != null) iv_foto.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -199,13 +205,14 @@ public class Perfil_usuari extends AppCompatActivity implements View.OnClickList
                         Intent intent = new Intent(getApplicationContext(), Registre.class);
                         intent.putExtras(bundle);
                         startActivity(intent);
+                        finish();
                     }
                 });
 
                 alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "Ben pensat", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Ben pensat", Toast.LENGTH_SHORT).show();
                     }
                 });
 

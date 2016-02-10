@@ -70,8 +70,8 @@ public class Registre extends AppCompatActivity implements View.OnClickListener{
                 //ArrayList<Uri> uri = new ArrayList<>();
                 //uri.add(image);
                 //bundle.putParcelableArrayList("uri", uri);
-                bundle.putParcelable("uri", image);
-                //bundle.putString("uri",Uri.image);
+                //bundle.putParcelable("uri", image);
+                bundle.putString(dbHelper.CN_IMAGE,image.toString());
                 intent.putExtras(bundle);
                 startActivity(intent);
                 finish();

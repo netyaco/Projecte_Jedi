@@ -29,6 +29,9 @@ import java.util.Random;
 public class Memory3 extends AppCompatActivity {
 
     private Toolbar toolbar;
+    SharedPreferences pref;
+    String user_res;
+    DbHelper dbHelper;
 
 
     @Override
@@ -38,6 +41,11 @@ public class Memory3 extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        pref = getSharedPreferences("pref", Context.MODE_PRIVATE);
+        user_res = pref.getString("user", null);
+
+        dbHelper = new DbHelper(this);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -66,6 +74,8 @@ public class Memory3 extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.container, new MemoryGameFragment())
                                 .commit();
+                        String user = pref.getString("user", null);
+                        if (user != null) dbHelper.update_notify(user,"Dale");
                     }
                 });
 
@@ -245,6 +255,8 @@ public class Memory3 extends AppCompatActivity {
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
             alertDialogBuilder.setMessage("Has necessitat "+ punts + " intents");
+            String user = pref.getString("user", null);
+            if (user != null) dbHelper.update_notify(user,"Has necessitat "+ punts + " intents");
 
             alertDialogBuilder.setPositiveButton("Tornar a jugar", new DialogInterface.OnClickListener() {
                 @Override

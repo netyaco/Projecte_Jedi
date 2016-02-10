@@ -37,6 +37,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     public SharedPreferences pref;
     SharedPreferences.Editor editor;
     private String notif;
+    DbHelper dbHelper;
 
 
     @Override
@@ -94,6 +95,8 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         bt18.setOnClickListener(this);
         bt19.setOnClickListener(this);
 
+        dbHelper = new DbHelper(this);
+
     }
 
     @Override
@@ -119,11 +122,11 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 startActivity(intent);
                 return true;
             case R.id.toast:
-                editor.putString("notif", null);
+                editor.putString("notif", "toast");
                 Toast.makeText(this, "Notificacions de toast activades", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.estado:
-                SharedPreferences.Editor editor = pref.edit();
+                //SharedPreferences.Editor editor = pref.edit();
                 editor.putString("notif", "estat");
                 Toast.makeText(this, "Notificacions d'estat activades", Toast.LENGTH_SHORT).show();
                 return true;
@@ -152,12 +155,20 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 } else if (operacio.equals("/")) {
                     if (val2 == 0) {
                         notif = pref.getString("notif", null);
-                        if (notif == null) {
+                        if (notif == "toast") {
                             Toast.makeText(getApplicationContext(), "Ni lo sueñes", Toast.LENGTH_LONG).show();
+                            String user = pref.getString("user", null);
+                            if (user != null) dbHelper.update_notify(user,"Ni lo sueñes");
+                            return;
+                        }
+                        else if (notif == "estat") {
+                            state_notif();
                             return;
                         }
                         else {
-                            state_notif();
+                            Toast.makeText(getApplicationContext(), "Ni lo sueñes", Toast.LENGTH_LONG).show();
+                            String user = pref.getString("user", null);
+                            if (user != null) dbHelper.update_notify(user,"Ni lo sueñes");
                             return;
                         }
                     } else total = val1 / val2;
